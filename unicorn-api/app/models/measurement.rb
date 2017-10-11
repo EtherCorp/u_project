@@ -1,3 +1,3 @@
 class Measurement < ApplicationRecord
-  belongs_to :metrics, optional: true
+  belongs_to :metric
 end

@@ -1,3 +1,3 @@
 class Document < ApplicationRecord
-  belongs_to :movements, optional: true
+  belongs_to :movement
 end
