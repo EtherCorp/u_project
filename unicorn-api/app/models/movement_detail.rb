@@ -1,3 +1,3 @@
 class MovementDetail < ApplicationRecord
-  belongs_to :movements, optional: true
+  belongs_to :movement
 end
