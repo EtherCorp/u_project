@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009150336) do
+ActiveRecord::Schema.define(version: 20171010235512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,7 +141,7 @@ ActiveRecord::Schema.define(version: 20171009150336) do
     t.string "job_title", null: false
     t.date "grant_date", null: false
     t.string "granting_entity", null: false
-    t.string "speciality", null: false
+    t.bigint "speciality_id"
     t.string "registration_number", null: false
     t.date "registration_date", null: false
     t.boolean "freelance", default: false
@@ -150,6 +150,14 @@ ActiveRecord::Schema.define(version: 20171009150336) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["rut"], name: "index_professionals_on_rut", unique: true
+    t.index ["speciality_id"], name: "index_professionals_on_speciality_id"
+  end
+
+  create_table "specialities", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_specialities_on_name", unique: true
   end
 
 end

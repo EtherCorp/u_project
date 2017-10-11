@@ -9,7 +9,7 @@ class CreateProfessionals < ActiveRecord::Migration[5.1]
       t.string :job_title, null: false
       t.date :grant_date, null: false
       t.string :granting_entity, null: false
-      t.string :speciality, null: false
+      t.references :speciality
       t.string :registration_number, null: false
       t.date :registration_date, null: false
       t.boolean :freelance, default: false
