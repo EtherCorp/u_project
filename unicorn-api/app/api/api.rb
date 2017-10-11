@@ -109,6 +109,16 @@ module API
       get do
         present MovementType.all, with: Entities::MovementType
       end
+
+      desc 'Create new movement type'
+      params do
+        requires :name, type: String, desc: 'Movement type name'
+      end
+      post do
+        mov_type = MovementType.new params
+        mov_type.save!
+        mov_type
+      end
     end
 
     resource :patients do
@@ -188,6 +198,16 @@ module API
       desc 'Get all specialities'
       get do
         present Speciality.all, with: Entities::Speciality
+      end
+
+      desc 'Create new speciality'
+      params do
+        requires :name, type: String, desc: 'Speciality name'
+      end
+      post do
+        speciality = Speciality.new params
+        speciality.save!
+        speciality
       end
     end
   end
