@@ -1,6 +1,7 @@
 # Unicorn Project
 
 ## How to set up project
+
 - Install ruby with rails and bundle gems
 - Install postgresql
 - Change to default postgres user `sudo -u postgres -i`
@@ -9,8 +10,9 @@
 - Return to default user `exit`
 - Open terminal in `<ProjectPath>/centers-api/`
 - Install gems `bundle install`
-- Create databases `rake db:setup`
+- Create databases `bundle exec rake db:setup`
 
 ### Soon
-- Migrate databases `rake db:migrate`
-- Run server `rails rerver`
+
+- Migrate databases `bundle exec rake db:migrate`
+- Run server `bundle exec rails rerver`
