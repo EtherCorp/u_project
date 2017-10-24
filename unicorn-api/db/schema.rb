@@ -95,20 +95,12 @@ ActiveRecord::Schema.define(version: 20171010235512) do
     t.index ["movement_id"], name: "index_movement_details_on_movement_id"
   end
 
-  create_table "movement_types", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_movement_types_on_name", unique: true
-  end
-
   create_table "movements", force: :cascade do |t|
     t.bigint "consult_id"
-    t.bigint "movement_type_id"
+    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["consult_id"], name: "index_movements_on_consult_id"
-    t.index ["movement_type_id"], name: "index_movements_on_movement_type_id"
   end
 
   create_table "patients", force: :cascade do |t|
