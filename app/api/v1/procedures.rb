@@ -8,12 +8,14 @@ module V1
   
         desc 'Create new procedure'
         params do
-          requires :consult_id, type: Integer, desc: 'Consult asociated to movement'
+          requires :patient_rut, type: String, desc: 'Patient rut from a movement'
+          requires :professional_rut, type: String, desc: 'Professional rut from a movement'
         end
         post do
-          proc = Procedure.new params
-          proc.save!
-          proc
+          procedure = Procedure.new
+          return nil if (procedure.consult! params[:patient_rut], params[:professional_rut]) == nil
+          procedure.save!
+          procedure
         end
       end
     end

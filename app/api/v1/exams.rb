@@ -6,12 +6,14 @@ module V1
           present Exam.all, with: Entities::Exam
         end
   
-        desc 'Create new exam'
+        desc 'Create new exam from RUNs'
         params do
-          requires :consult_id, type: Integer, desc: 'Consult asociated to movement'
+          requires :patient_rut, type: String, desc: 'Patient rut from a movement'
+          requires :professional_rut, type: String, desc: 'Professional rut from a movement'
         end
         post do
-          exam = Exam.new params
+          exam = Exam.new
+          return nil if (exam.consult! params[:patient_rut], params[:professional_rut]) == nil
           exam.save!
           exam
         end

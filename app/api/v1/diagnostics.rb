@@ -8,12 +8,14 @@ module V1
   
         desc 'Create new diagnostic'
         params do
-          requires :consult_id, type: Integer, desc: 'Consult asociated to movement'
+          requires :patient_rut, type: String, desc: 'Patient rut from a movement'
+          requires :professional_rut, type: String, desc: 'Professional rut from a movement'
         end
         post do
-          diag = Diagnostic.new params
-          diag.save!
-          diag
+          diagnostic = Diagnostic.new
+          return nil if (diagnostic.consult! params[:patient_rut], params[:professional_rut]) == nil
+          diagnostic.save!
+          diagnostic
         end
       end
     end
