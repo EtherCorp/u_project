@@ -5,7 +5,7 @@ require 'fileutils'
 
 module Storage
     OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
-    APPLICATION_NAME = 'Unicorn'
+    APPLICATION_NAME = 'My project'
     CLIENT_SECRETS_PATH = 'client_secret.json'
     CREDENTIALS_PATH = File.join(Dir.home, '.credentials',
                                     "drive-ruby-quickstart.yaml")
@@ -53,7 +53,7 @@ module Storage
         puts "#{file.name} (#{file.id})"
         end
     end
-    def upload(authorize)
+    def upload(authorize, nameFile, nameOnDrive)
         
         service = Google::Apis::DriveV3::DriveService.new
         service.client_options.application_name = APPLICATION_NAME
@@ -61,13 +61,13 @@ module Storage
         
         # SUBIR
         file_metadata = {
-          name: 'new json',
+          name: nameOnDrive,
           mime_type: 'application/json'
         }
         
         file = service.create_file(file_metadata,
                                     fields: 'id',
-                                    upload_source: 'example.json',
+                                    upload_source: nameFile + '.json',
                                     content_type: 'application/json')
         puts "File Id: #{file.id}"
         
@@ -77,8 +77,10 @@ end
 class  Test
     include Storage
     def initialize
+        newName = 'archivo nuevo'
+        namFile = 'client_secret'
         read(authorize)
-        upload(authorize)
+        upload(authorize, namFile , newName)
     end
 end
 
