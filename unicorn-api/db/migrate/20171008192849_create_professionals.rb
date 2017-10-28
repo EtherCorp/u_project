@@ -17,6 +17,5 @@ class CreateProfessionals < ActiveRecord::Migration[5.1]
       t.string :phone
       t.timestamps
     end
-    add_index :professionals, :rut, unique: true
   end
 end
