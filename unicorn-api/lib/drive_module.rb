@@ -2,7 +2,7 @@ require 'google/apis/drive_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
-
+require "base64"
 module Storage
     OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
     APPLICATION_NAME = 'My project'
@@ -67,9 +67,19 @@ module Storage
         
         file = service.create_file(file_metadata,
                                     fields: 'id',
-                                    upload_source: nameFile + '.json',
-                                    content_type: 'application/json')
+                                    upload_source: nameFile+'.txt',
+                                    content_type: 'application/txt')
         puts "File Id: #{file.id}"
+        
+    end
+
+    def encodeFile(nameFile)
+        encoded_file = Base64.encode64(File.open(nameFile+'.png').read)
+        puts (encoded_file)
+        File.open(nameFile+'.txt', 'w') do |f2|
+            # '\n' es el retorno de carro
+            f2.puts (encoded_file)
+          end
         
     end
 end
@@ -77,10 +87,13 @@ end
 class  Test
     include Storage
     def initialize
-        newName = 'archivo nuevo'
+        newName = 'archivo nuevo 2'
         namFile = 'client_secret'
+        nameFile = 'captura'
         read(authorize)
-        upload(authorize, namFile , newName)
+        encodeFile(nameFile)
+        upload(authorize, nameFile , newName)
+        
     end
 end
 
