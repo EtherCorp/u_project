@@ -17,3 +17,6 @@
 
 # JetBrains IDEs
 .idea/
+
+# Ignore personal configurations
+/config/*.yml

@@ -158,8 +158,8 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  grape
-  grape-entity
+  grape (~> 1.0.1)
+  grape-entity (~> 0.6.1)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.18)

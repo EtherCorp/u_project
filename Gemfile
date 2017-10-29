@@ -42,5 +42,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 # Gemfile
-gem 'grape'
-gem 'grape-entity'
+gem 'grape', '~> 1.0.1'
+gem 'grape-entity', '~> 0.6.1'
