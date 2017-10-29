@@ -7,6 +7,7 @@ class Movement < ApplicationRecord
 
   def self.create_from_params(params)
     attributes = params.to_h.symbolize_keys
+    entry = new
     entry.consult_id = attributes[:consult_id]
     entry.type = attributes[:type] || 'unknown'
     entry

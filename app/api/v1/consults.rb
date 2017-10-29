@@ -10,9 +10,9 @@ module V1
       params do
         requires :patient_id, type: Integer, desc: 'Patient ID'
         requires :professional_id, type: Integer, desc: 'Professional ID'
-        requires :date, type: DateTime, desc: 'Consult date'
         requires :reason, type: String, desc: 'Consult reason'
         requires :symptoms, type: String, desc: 'Symptoms'
+        optional :date, type: DateTime, desc: 'Consult date'
         optional :observations, type: String, desc: 'Observations'
       end
       post do

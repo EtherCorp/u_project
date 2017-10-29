@@ -42,7 +42,7 @@ module V1
           get do
             patient = Patient.find_by_id(params[:id])
             error! 'Not Found', 404 unless patient
-            present patient.movements_by_type(:exam), with: Entities::Movement
+            present patient.movements_by_type('Exam'), with: Entities::Movement
           end
         end
         resource :licenses do
@@ -50,7 +50,7 @@ module V1
           get do
             patient = Patient.find_by_id(params[:id])
             error! 'Not Found', 404 unless patient
-            present patient.movements_by_type(:license), with: Entities::Movement
+            present patient.movements_by_type('License'), with: Entities::Movement
           end
         end
         resource :prescriptions do
@@ -58,7 +58,7 @@ module V1
           get do
             patient = Patient.find_by_id(params[:id])
             error! 'Not Found', 404 unless patient
-            present patient.movements_by_type(:prescription), with: Entities::Movement
+            present patient.movements_by_type('Prescription'), with: Entities::Movement
           end
         end
         resource :procedures do
@@ -66,7 +66,15 @@ module V1
           get do
             patient = Patient.find_by_id(params[:id])
             error! 'Not Found', 404 unless patient
-            present patient.movements_by_type(:procedure), with: Entities::Movement
+            present patient.movements_by_type('Procedures'), with: Entities::Movement
+          end
+        end
+        resource :diagnostics do
+          desc 'Get all procedures of a patient'
+          get do
+            patient = Patient.find_by_id(params[:id])
+            error! 'Not Found', 404 unless patient
+            present patient.movements_by_type('Diagnostic'), with: Entities::Movement
           end
         end
       end

@@ -9,10 +9,8 @@ module Entities
     expose :speciality, using: Entities::Speciality
     expose :registration_date
     expose :freelance
-    expose :grant_info do
-      expose :job_title
-      expose :grant_date
-      expose :granting_entity
-    end
+    expose :job_title
+    expose :grant_date
+    expose :granting_entity
   end
 end
