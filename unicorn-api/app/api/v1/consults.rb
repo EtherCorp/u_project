@@ -10,29 +10,31 @@ module V1
       params do
         requires :patient_id, type: Integer, desc: 'Patient ID'
         requires :professional_id, type: Integer, desc: 'Professional ID'
-        requires :date, type: Date, desc: 'Consult date'
+        requires :date, type: DateTime, desc: 'Consult date'
         requires :reason, type: String, desc: 'Consult reason'
         requires :symptoms, type: String, desc: 'Symptoms'
         optional :observations, type: String, desc: 'Observations'
       end
       post do
-        consult = Consult.new params
-        consult.save!
+        consult = Consult.create_from_params params
+        error! 'Unprocessable Entity', 422 unless consult.save
         consult
       end
 
       route_param :consult_id do
         desc 'Get consult by ID'
         get do
-          present Consult.find_by(id: params[:consult_id]),
-                  with: Entities::Consult
+          consult = Consult.find_by_id(params[:consult_id])
+          error! 'Not Found', 404 unless consult
+          present consult, with: Entities::Consult
         end
 
         resource :movements do
           desc 'Get all movements from a consult'
           get do
-            present Consult.find_by(id: params[:consult_id]).movements,
-                    with: Entities::Movement
+            consult = Consult.find_by(id: params[:consult_id])
+            error! 'Not Found', 404 unless consult
+            present consult.movements, with: Entities::Movement
           end
 
           desc 'Create new movement for a specified consult'
@@ -41,8 +43,8 @@ module V1
             requires :movement_type_id, type: Integer, desc: 'Movement type ID'
           end
           post do
-            movement = Movement.new params
-            movement.save!
+            movement = Movement.create_from_params params
+            error! 'Unprocessable Entity', 422 unless movement.save
             movement
           end
 

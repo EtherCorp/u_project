@@ -14,22 +14,25 @@ module V1
         requires :age, type: Integer, desc: 'Age'
       end
       post do
-        patient = Patient.new params
-        patient.save!
+        patient = Patient.create_from_params params
+        error! 'Unprocessable Entity', 422 unless patient.save
         patient
       end
 
       route_param :id do
         desc 'Get patient by ID'
         get do
-          present Patient.find_by(id: params[:id]), with: Entities::Patient
+          patient = Patient.find_by_id(params[:id])
+          error! 'Not Found', 404 unless patient
+          present patient, with: Entities::Patient
         end
 
         resource :consults do
           desc 'Get all consults from a patient'
           get do
-            present Patient.find_by(id: params[:id]).consults,
-                    with: Entities::Consult
+            patient = Patient.find_by_id(params[:id])
+            error! 'Not Found', 404 unless patient
+            present patient.consults, with: Entities::Consult
           end
         end
       end
