@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171029144706) do
+ActiveRecord::Schema.define(version: 20171029151120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20171029144706) do
   create_table "consults", force: :cascade do |t|
     t.bigint "patient_id"
     t.bigint "professional_id"
-    t.date "date", null: false
+    t.datetime "date", null: false
     t.string "reason", null: false
     t.string "symptoms", null: false
     t.string "observations"
@@ -95,12 +95,20 @@ ActiveRecord::Schema.define(version: 20171029144706) do
     t.index ["movement_id"], name: "index_movement_details_on_movement_id"
   end
 
+  create_table "movement_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_movement_types_on_name", unique: true
+  end
+
   create_table "movements", force: :cascade do |t|
     t.bigint "consult_id"
-    t.string "type"
+    t.bigint "movement_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["consult_id"], name: "index_movements_on_consult_id"
+    t.index ["movement_type_id"], name: "index_movements_on_movement_type_id"
   end
 
   create_table "patients", force: :cascade do |t|

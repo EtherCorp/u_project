@@ -11,8 +11,8 @@ module V1
         requires :name, type: String, desc: 'Speciality name'
       end
       post do
-        speciality = Speciality.new params
-        speciality.save!
+        speciality = Speciality.create_from_params params
+        error! 'Unprocessable Entity', 422 unless speciality.save
         speciality
       end
     end

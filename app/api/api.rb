@@ -7,11 +7,6 @@ module API
       mount ::V1::Consults
       mount ::V1::MedicalCenters
       mount ::V1::Movements
-      mount ::V1::Diagnostics
-      mount ::V1::Exams
-      mount ::V1::Licenses
-      mount ::V1::Prescriptions
-      mount ::V1::Procedures
       mount ::V1::Patients
       mount ::V1::Professionals
       mount ::V1::Specialities
