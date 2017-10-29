@@ -7,6 +7,5 @@ class CreatePatients < ActiveRecord::Migration[5.1]
       t.integer :age, null: false
       t.timestamps
     end
-    add_index :patients, :rut, unique: true
   end
 end
