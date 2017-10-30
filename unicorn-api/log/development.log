@@ -1,0 +1,1109 @@
+Started GET "/" for 127.0.0.1 at 2017-10-07 23:20:37 -0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/noteip110/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/noteip110/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb (2.5ms)
+Completed 200 OK in 357ms (Views: 5.8ms)
+
+
+  [1m[35m (95.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (93.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4769988618823049895)[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-10-08 02:28:30.142642"], ["updated_at", "2017-10-08 02:28:30.142642"]]
+  [1m[35m (12.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(4769988618823049895)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4769988618823049895)[0m
+  [1m[35m (18.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateProfessionals (20171008192849)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (184.4ms)[0m  [1m[35mCREATE TABLE "professionals" ("id" bigserial primary key, "rut" character varying NOT NULL, "name" character varying NOT NULL, "last_name" character varying NOT NULL, "age" integer NOT NULL, "nationality" character varying NOT NULL, "job_title" character varying NOT NULL, "grant_date" date NOT NULL, "granting_entity" character varying NOT NULL, "speciality" character varying NOT NULL, "registration_number" character varying NOT NULL, "registration_date" date NOT NULL, "freelance" boolean DEFAULT 'f', "email" character varying NOT NULL, "phone" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (45.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_professionals_on_rut" ON "professionals"  ("rut")[0m
+  [1m[35mSQL (1.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008192849"]]
+  [1m[35m (17.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateConsults (20171008193633)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (107.1ms)[0m  [1m[35mCREATE TABLE "consults" ("id" bigserial primary key, "patient_id" bigint, "professional_id" bigint, "date" date NOT NULL, "reason" character varying NOT NULL, "symptoms" character varying NOT NULL, "observations" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (42.5ms)[0m  [1m[35mCREATE  INDEX  "index_consults_on_patient_id" ON "consults"  ("patient_id")[0m
+  [1m[35m (38.9ms)[0m  [1m[35mCREATE  INDEX  "index_consults_on_professional_id" ON "consults"  ("professional_id")[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193633"]]
+  [1m[35m (12.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePermissions (20171008193644)
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (45.0ms)[0m  [1m[35mCREATE TABLE "permissions" ("id" bigserial primary key, "patient_id" bigint, "professional_id" bigint, "date" date NOT NULL, "expiration" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (39.0ms)[0m  [1m[35mCREATE  INDEX  "index_permissions_on_patient_id" ON "permissions"  ("patient_id")[0m
+  [1m[35m (50.4ms)[0m  [1m[35mCREATE  INDEX  "index_permissions_on_professional_id" ON "permissions"  ("professional_id")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193644"]]
+  [1m[35m (11.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePatients (20171008193653)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (69.1ms)[0m  [1m[35mCREATE TABLE "patients" ("id" bigserial primary key, "rut" character varying NOT NULL, "name" character varying NOT NULL, "last_name" character varying NOT NULL, "age" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (38.2ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_patients_on_rut" ON "patients"  ("rut")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193653"]]
+  [1m[35m (21.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMovements (20171008193707)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (117.2ms)[0m  [1m[35mCREATE TABLE "movements" ("id" bigserial primary key, "consult_id" bigint, "movement_type" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (50.0ms)[0m  [1m[35mCREATE  INDEX  "index_movements_on_consult_id" ON "movements"  ("consult_id")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193707"]]
+  [1m[35m (18.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMovementDetails (20171008193729)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (85.1ms)[0m  [1m[35mCREATE TABLE "movement_details" ("id" bigserial primary key, "movement_id" bigint, "key" character varying NOT NULL, "value" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (49.9ms)[0m  [1m[35mCREATE  INDEX  "index_movement_details_on_movement_id" ON "movement_details"  ("movement_id")[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193729"]]
+  [1m[35m (17.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDocuments (20171008193739)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (52.5ms)[0m  [1m[35mCREATE TABLE "documents" ("id" bigserial primary key, "movement_id" bigint, "doc_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (39.0ms)[0m  [1m[35mCREATE  INDEX  "index_documents_on_movement_id" ON "documents"  ("movement_id")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193739"]]
+  [1m[35m (18.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMedicalCenters (20171008193757)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (85.0ms)[0m  [1m[35mCREATE TABLE "medical_centers" ("id" bigserial primary key, "name" character varying NOT NULL, "address" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193757"]]
+  [1m[35m (18.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateConnectionTokens (20171008193803)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (96.4ms)[0m  [1m[35mCREATE TABLE "connection_tokens" ("id" bigserial primary key, "medical_center_id" bigint, "token" character varying NOT NULL, "expiration" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (38.8ms)[0m  [1m[35mCREATE  INDEX  "index_connection_tokens_on_medical_center_id" ON "connection_tokens"  ("medical_center_id")[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193803"]]
+  [1m[35m (17.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMetrics (20171008193822)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (97.9ms)[0m  [1m[35mCREATE TABLE "metrics" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193822"]]
+  [1m[35m (16.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMeasurements (20171008193832)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (87.8ms)[0m  [1m[35mCREATE TABLE "measurements" ("id" bigserial primary key, "metric_id" bigint, "value" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (38.7ms)[0m  [1m[35mCREATE  INDEX  "index_measurements_on_metric_id" ON "measurements"  ("metric_id")[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193832"]]
+  [1m[35m (15.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAccesses (20171008193844)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (99.8ms)[0m  [1m[35mCREATE TABLE "accesses" ("id" bigserial primary key, "access_type" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193844"]]
+  [1m[35m (14.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateJoinTableMedicalCentersProfessionals (20171008195918)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "medical_centers_professionals" ("medical_center_id" bigint NOT NULL, "professional_id" bigint NOT NULL)[0m
+  [1m[35m (44.9ms)[0m  [1m[35mCREATE  INDEX  "index_medical_centers_professionals_on_medical_center_id" ON "medical_centers_professionals"  ("medical_center_id")[0m
+  [1m[35m (38.8ms)[0m  [1m[35mCREATE  INDEX  "index_medical_centers_professionals_on_professional_id" ON "medical_centers_professionals"  ("professional_id")[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008195918"]]
+  [1m[35m (13.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateJoinTableAccessesPermissions (20171008200738)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "accesses_permissions" ("access_id" bigint NOT NULL, "permission_id" bigint NOT NULL)[0m
+  [1m[35m (64.3ms)[0m  [1m[35mCREATE  INDEX  "index_accesses_permissions_on_access_id" ON "accesses_permissions"  ("access_id")[0m
+  [1m[35m (43.2ms)[0m  [1m[35mCREATE  INDEX  "index_accesses_permissions_on_permission_id" ON "accesses_permissions"  ("permission_id")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008200738"]]
+  [1m[35m (12.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (31.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT pg_advisory_unlock(4769988618823049895)[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "patients" ("rut", "name", "last_name", "age", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["rut", "11"], ["name", "hom"], ["last_name", "homm"], ["age", 12], ["created_at", "2017-10-09 00:47:00.023199"], ["updated_at", "2017-10-09 00:47:00.023199"]]
+  [1m[35m (12.4ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for 127.0.0.1 at 2017-10-11 06:39:48 -0300
+  [1m[35m (21.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.1.4) lib/active_record/migration.rb:576:in `check_pending!'
+activerecord (5.1.4) lib/active_record/migration.rb:553:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.4) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/favicon.ico" for 127.0.0.1 at 2017-10-11 06:39:49 -0300
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.1.4) lib/active_record/migration.rb:576:in `check_pending!'
+activerecord (5.1.4) lib/active_record/migration.rb:553:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.4) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4769988618823049895)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateMovementTypes (20171009150336)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (357.9ms)[0m  [1m[35mCREATE TABLE "movement_types" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (51.3ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_movement_types_on_name" ON "movement_types"  ("name")[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171009150336"]]
+  [1m[35m (19.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSpecialities (20171010235512)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (76.1ms)[0m  [1m[35mCREATE TABLE "specialities" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (38.6ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_specialities_on_name" ON "specialities"  ("name")[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171010235512"]]
+  [1m[35m (16.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (27.6ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT pg_advisory_unlock(4769988618823049895)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2017-10-11 06:43:17 -0300
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/noteip110/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/noteip110/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb (6.9ms)
+Completed 200 OK in 32ms (Views: 15.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2017-10-11 06:43:17 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/api/v1/consults" for 127.0.0.1 at 2017-10-11 06:44:15 -0300
+  [1m[36mConsult Load (18.9ms)[0m  [1m[34mSELECT "consults".* FROM "consults"[0m
+Started POST "/api/v1/consults" for 127.0.0.1 at 2017-10-11 06:47:28 -0300
+Started POST "/api/v1/consults" for 127.0.0.1 at 2017-10-11 06:47:46 -0300
+  
+ActiveModel::UnknownAttributeError (unknown attribute 'observation' for Consult.):
+  
+app/api/api.rb:23:in `block (2 levels) in <class:V1>'
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (15.6ms)[0m  [1m[32mINSERT INTO "patients" ("name", "last_name", "age", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Andrew"], ["last_name", "Soto"], ["age", 20], ["created_at", "2017-10-11 09:50:08.900967"], ["updated_at", "2017-10-11 09:50:08.900967"]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (42.9ms)[0m  [1m[32mINSERT INTO "patients" ("rut", "name", "last_name", "age", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["rut", "20123234-1"], ["name", "Andrew"], ["last_name", "Soto"], ["age", 20], ["created_at", "2017-10-11 09:50:08.900967"], ["updated_at", "2017-10-11 09:50:08.900967"]]
+  [1m[35m (20.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "specialities" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Odontologia"], ["created_at", "2017-10-11 09:55:19.703078"], ["updated_at", "2017-10-11 09:55:19.703078"]]
+  [1m[35m (17.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSpeciality Load (0.3ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."name" = $1 LIMIT $2[0m  [["name", "Odontologia"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4769988618823049895)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(4769988618823049895)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (5015.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "unicorn-api_development"[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (246.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "unicorn-api_development"[0m
+  [1m[35m (223.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "unicorn-api_test"[0m
+  [1m[35m (781.7ms)[0m  [1m[35mCREATE DATABASE "unicorn-api_development" ENCODING = 'unicode'[0m
+  [1m[35m (947.0ms)[0m  [1m[35mCREATE DATABASE "unicorn-api_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "accesses" CASCADE[0m
+  [1m[35m (107.1ms)[0m  [1m[35mCREATE TABLE "accesses" ("id" bigserial primary key, "access_type" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "accesses_permissions" CASCADE[0m
+  [1m[35m (8.5ms)[0m  [1m[35mCREATE TABLE "accesses_permissions" ("access_id" bigint NOT NULL, "permission_id" bigint NOT NULL)[0m
+  [1m[35m (57.3ms)[0m  [1m[35mCREATE  INDEX  "index_accesses_permissions_on_access_id" ON "accesses_permissions"  ("access_id")[0m
+  [1m[35m (49.6ms)[0m  [1m[35mCREATE  INDEX  "index_accesses_permissions_on_permission_id" ON "accesses_permissions"  ("permission_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "connection_tokens" CASCADE[0m
+  [1m[35m (96.9ms)[0m  [1m[35mCREATE TABLE "connection_tokens" ("id" bigserial primary key, "medical_center_id" bigint, "token" character varying NOT NULL, "expiration" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (49.2ms)[0m  [1m[35mCREATE  INDEX  "index_connection_tokens_on_medical_center_id" ON "connection_tokens"  ("medical_center_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "consults" CASCADE[0m
+  [1m[35m (119.3ms)[0m  [1m[35mCREATE TABLE "consults" ("id" bigserial primary key, "patient_id" bigint, "professional_id" bigint, "date" date NOT NULL, "reason" character varying NOT NULL, "symptoms" character varying NOT NULL, "observations" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.2ms)[0m  [1m[35mCREATE  INDEX  "index_consults_on_patient_id" ON "consults"  ("patient_id")[0m
+  [1m[35m (49.4ms)[0m  [1m[35mCREATE  INDEX  "index_consults_on_professional_id" ON "consults"  ("professional_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "documents" CASCADE[0m
+  [1m[35m (63.7ms)[0m  [1m[35mCREATE TABLE "documents" ("id" bigserial primary key, "movement_id" bigint, "doc_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (49.1ms)[0m  [1m[35mCREATE  INDEX  "index_documents_on_movement_id" ON "documents"  ("movement_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "measurements" CASCADE[0m
+  [1m[35m (108.2ms)[0m  [1m[35mCREATE TABLE "measurements" ("id" bigserial primary key, "metric_id" bigint, "value" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.0ms)[0m  [1m[35mCREATE  INDEX  "index_measurements_on_metric_id" ON "measurements"  ("metric_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "medical_centers" CASCADE[0m
+  [1m[35m (97.4ms)[0m  [1m[35mCREATE TABLE "medical_centers" ("id" bigserial primary key, "name" character varying NOT NULL, "address" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "medical_centers_professionals" CASCADE[0m
+  [1m[35m (8.4ms)[0m  [1m[35mCREATE TABLE "medical_centers_professionals" ("medical_center_id" bigint NOT NULL, "professional_id" bigint NOT NULL)[0m
+  [1m[35m (48.5ms)[0m  [1m[35mCREATE  INDEX  "index_medical_centers_professionals_on_medical_center_id" ON "medical_centers_professionals"  ("medical_center_id")[0m
+  [1m[35m (38.6ms)[0m  [1m[35mCREATE  INDEX  "index_medical_centers_professionals_on_professional_id" ON "medical_centers_professionals"  ("professional_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "metrics" CASCADE[0m
+  [1m[35m (86.4ms)[0m  [1m[35mCREATE TABLE "metrics" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "movement_details" CASCADE[0m
+  [1m[35m (97.3ms)[0m  [1m[35mCREATE TABLE "movement_details" ("id" bigserial primary key, "movement_id" bigint, "key" character varying NOT NULL, "value" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.3ms)[0m  [1m[35mCREATE  INDEX  "index_movement_details_on_movement_id" ON "movement_details"  ("movement_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "movement_types" CASCADE[0m
+  [1m[35m (108.4ms)[0m  [1m[35mCREATE TABLE "movement_types" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (71.6ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_movement_types_on_name" ON "movement_types"  ("name")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "movements" CASCADE[0m
+  [1m[35m (98.8ms)[0m  [1m[35mCREATE TABLE "movements" ("id" bigserial primary key, "consult_id" bigint, "movement_type" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.4ms)[0m  [1m[35mCREATE  INDEX  "index_movements_on_consult_id" ON "movements"  ("consult_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "patients" CASCADE[0m
+  [1m[35m (119.1ms)[0m  [1m[35mCREATE TABLE "patients" ("id" bigserial primary key, "rut" character varying NOT NULL, "name" character varying NOT NULL, "last_name" character varying NOT NULL, "age" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_patients_on_rut" ON "patients"  ("rut")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "permissions" CASCADE[0m
+  [1m[35m (63.9ms)[0m  [1m[35mCREATE TABLE "permissions" ("id" bigserial primary key, "patient_id" bigint, "professional_id" bigint, "date" date NOT NULL, "expiration" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.2ms)[0m  [1m[35mCREATE  INDEX  "index_permissions_on_patient_id" ON "permissions"  ("patient_id")[0m
+  [1m[35m (60.0ms)[0m  [1m[35mCREATE  INDEX  "index_permissions_on_professional_id" ON "permissions"  ("professional_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "professionals" CASCADE[0m
+  [1m[35m (117.0ms)[0m  [1m[35mCREATE TABLE "professionals" ("id" bigserial primary key, "rut" character varying NOT NULL, "name" character varying NOT NULL, "last_name" character varying NOT NULL, "age" integer NOT NULL, "nationality" character varying NOT NULL, "job_title" character varying NOT NULL, "grant_date" date NOT NULL, "granting_entity" character varying NOT NULL, "speciality" character varying NOT NULL, "registration_number" character varying NOT NULL, "registration_date" date NOT NULL, "freelance" boolean DEFAULT 'f', "email" character varying NOT NULL, "phone" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (49.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_professionals_on_rut" ON "professionals"  ("rut")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "specialities" CASCADE[0m
+  [1m[35m (97.2ms)[0m  [1m[35mCREATE TABLE "specialities" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (49.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_specialities_on_name" ON "specialities"  ("name")[0m
+  [1m[35m (85.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (5.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20171010235512)[0m
+  [1m[35m (10.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20171008200738),
+(20171009150336),
+(20171008193633),
+(20171008193757),
+(20171008193644),
+(20171008193822),
+(20171008193739),
+(20171008193707),
+(20171008192849),
+(20171008193729),
+(20171008193803),
+(20171008193844),
+(20171008195918),
+(20171008193653),
+(20171008193832);
+
+[0m
+  [1m[35m (107.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-10-11 10:12:30.864365"], ["updated_at", "2017-10-11 10:12:30.864365"]]
+  [1m[35m (6.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "accesses" CASCADE[0m
+  [1m[35m (86.8ms)[0m  [1m[35mCREATE TABLE "accesses" ("id" bigserial primary key, "access_type" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "accesses_permissions" CASCADE[0m
+  [1m[35m (19.6ms)[0m  [1m[35mCREATE TABLE "accesses_permissions" ("access_id" bigint NOT NULL, "permission_id" bigint NOT NULL)[0m
+  [1m[35m (45.9ms)[0m  [1m[35mCREATE  INDEX  "index_accesses_permissions_on_access_id" ON "accesses_permissions"  ("access_id")[0m
+  [1m[35m (49.1ms)[0m  [1m[35mCREATE  INDEX  "index_accesses_permissions_on_permission_id" ON "accesses_permissions"  ("permission_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "connection_tokens" CASCADE[0m
+  [1m[35m (97.0ms)[0m  [1m[35mCREATE TABLE "connection_tokens" ("id" bigserial primary key, "medical_center_id" bigint, "token" character varying NOT NULL, "expiration" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.2ms)[0m  [1m[35mCREATE  INDEX  "index_connection_tokens_on_medical_center_id" ON "connection_tokens"  ("medical_center_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "consults" CASCADE[0m
+  [1m[35m (107.9ms)[0m  [1m[35mCREATE TABLE "consults" ("id" bigserial primary key, "patient_id" bigint, "professional_id" bigint, "date" date NOT NULL, "reason" character varying NOT NULL, "symptoms" character varying NOT NULL, "observations" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.3ms)[0m  [1m[35mCREATE  INDEX  "index_consults_on_patient_id" ON "consults"  ("patient_id")[0m
+  [1m[35m (60.3ms)[0m  [1m[35mCREATE  INDEX  "index_consults_on_professional_id" ON "consults"  ("professional_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "documents" CASCADE[0m
+  [1m[35m (74.8ms)[0m  [1m[35mCREATE TABLE "documents" ("id" bigserial primary key, "movement_id" bigint, "doc_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.4ms)[0m  [1m[35mCREATE  INDEX  "index_documents_on_movement_id" ON "documents"  ("movement_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "measurements" CASCADE[0m
+  [1m[35m (108.3ms)[0m  [1m[35mCREATE TABLE "measurements" ("id" bigserial primary key, "metric_id" bigint, "value" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.0ms)[0m  [1m[35mCREATE  INDEX  "index_measurements_on_metric_id" ON "measurements"  ("metric_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "medical_centers" CASCADE[0m
+  [1m[35m (108.5ms)[0m  [1m[35mCREATE TABLE "medical_centers" ("id" bigserial primary key, "name" character varying NOT NULL, "address" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "medical_centers_professionals" CASCADE[0m
+  [1m[35m (8.2ms)[0m  [1m[35mCREATE TABLE "medical_centers_professionals" ("medical_center_id" bigint NOT NULL, "professional_id" bigint NOT NULL)[0m
+  [1m[35m (60.1ms)[0m  [1m[35mCREATE  INDEX  "index_medical_centers_professionals_on_medical_center_id" ON "medical_centers_professionals"  ("medical_center_id")[0m
+  [1m[35m (60.5ms)[0m  [1m[35mCREATE  INDEX  "index_medical_centers_professionals_on_professional_id" ON "medical_centers_professionals"  ("professional_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "metrics" CASCADE[0m
+  [1m[35m (86.3ms)[0m  [1m[35mCREATE TABLE "metrics" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "movement_details" CASCADE[0m
+  [1m[35m (86.1ms)[0m  [1m[35mCREATE TABLE "movement_details" ("id" bigserial primary key, "movement_id" bigint, "key" character varying NOT NULL, "value" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (48.9ms)[0m  [1m[35mCREATE  INDEX  "index_movement_details_on_movement_id" ON "movement_details"  ("movement_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "movement_types" CASCADE[0m
+  [1m[35m (97.2ms)[0m  [1m[35mCREATE TABLE "movement_types" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (49.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_movement_types_on_name" ON "movement_types"  ("name")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "movements" CASCADE[0m
+  [1m[35m (86.0ms)[0m  [1m[35mCREATE TABLE "movements" ("id" bigserial primary key, "consult_id" bigint, "movement_type" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (59.9ms)[0m  [1m[35mCREATE  INDEX  "index_movements_on_consult_id" ON "movements"  ("consult_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "patients" CASCADE[0m
+  [1m[35m (96.7ms)[0m  [1m[35mCREATE TABLE "patients" ("id" bigserial primary key, "rut" character varying NOT NULL, "name" character varying NOT NULL, "last_name" character varying NOT NULL, "age" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.2ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_patients_on_rut" ON "patients"  ("rut")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "permissions" CASCADE[0m
+  [1m[35m (63.1ms)[0m  [1m[35mCREATE TABLE "permissions" ("id" bigserial primary key, "patient_id" bigint, "professional_id" bigint, "date" date NOT NULL, "expiration" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.5ms)[0m  [1m[35mCREATE  INDEX  "index_permissions_on_patient_id" ON "permissions"  ("patient_id")[0m
+  [1m[35m (60.4ms)[0m  [1m[35mCREATE  INDEX  "index_permissions_on_professional_id" ON "permissions"  ("professional_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "professionals" CASCADE[0m
+  [1m[35m (116.3ms)[0m  [1m[35mCREATE TABLE "professionals" ("id" bigserial primary key, "rut" character varying NOT NULL, "name" character varying NOT NULL, "last_name" character varying NOT NULL, "age" integer NOT NULL, "nationality" character varying NOT NULL, "job_title" character varying NOT NULL, "grant_date" date NOT NULL, "granting_entity" character varying NOT NULL, "speciality" character varying NOT NULL, "registration_number" character varying NOT NULL, "registration_date" date NOT NULL, "freelance" boolean DEFAULT 'f', "email" character varying NOT NULL, "phone" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.4ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_professionals_on_rut" ON "professionals"  ("rut")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "specialities" CASCADE[0m
+  [1m[35m (108.0ms)[0m  [1m[35mCREATE TABLE "specialities" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (60.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_specialities_on_name" ON "specialities"  ("name")[0m
+  [1m[35m (83.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (4.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20171010235512)[0m
+  [1m[35m (10.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20171008200738),
+(20171009150336),
+(20171008193633),
+(20171008193757),
+(20171008193644),
+(20171008193822),
+(20171008193739),
+(20171008193707),
+(20171008192849),
+(20171008193729),
+(20171008193803),
+(20171008193844),
+(20171008195918),
+(20171008193653),
+(20171008193832);
+
+[0m
+  [1m[35m (95.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-10-11 10:12:33.636850"], ["updated_at", "2017-10-11 10:12:33.636850"]]
+  [1m[35m (6.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (2.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (1127.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "unicorn-api_development"[0m
+  [1m[35m (236.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "unicorn-api_test"[0m
+  [1m[35m (574.6ms)[0m  [1m[35mCREATE DATABASE "unicorn-api_development" ENCODING = 'unicode'[0m
+  [1m[35m (668.1ms)[0m  [1m[35mCREATE DATABASE "unicorn-api_test" ENCODING = 'unicode'[0m
+  [1m[35m (120.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (96.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4769988618823049895)[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateProfessionals (20171008192849)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (81.6ms)[0m  [1m[35mCREATE TABLE "professionals" ("id" bigserial primary key, "rut" character varying NOT NULL, "name" character varying NOT NULL, "last_name" character varying NOT NULL, "age" integer NOT NULL, "nationality" character varying NOT NULL, "job_title" character varying NOT NULL, "grant_date" date NOT NULL, "granting_entity" character varying NOT NULL, "speciality_id" bigint, "registration_number" character varying NOT NULL, "registration_date" date NOT NULL, "freelance" boolean DEFAULT 'f', "email" character varying NOT NULL, "phone" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (49.3ms)[0m  [1m[35mCREATE  INDEX  "index_professionals_on_speciality_id" ON "professionals"  ("speciality_id")[0m
+  [1m[35m (43.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_professionals_on_rut" ON "professionals"  ("rut")[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008192849"]]
+  [1m[35m (17.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateConsults (20171008193633)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (68.3ms)[0m  [1m[35mCREATE TABLE "consults" ("id" bigserial primary key, "patient_id" bigint, "professional_id" bigint, "date" date NOT NULL, "reason" character varying NOT NULL, "symptoms" character varying NOT NULL, "observations" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (38.6ms)[0m  [1m[35mCREATE  INDEX  "index_consults_on_patient_id" ON "consults"  ("patient_id")[0m
+  [1m[35m (50.2ms)[0m  [1m[35mCREATE  INDEX  "index_consults_on_professional_id" ON "consults"  ("professional_id")[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193633"]]
+  [1m[35m (11.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePermissions (20171008193644)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (46.7ms)[0m  [1m[35mCREATE TABLE "permissions" ("id" bigserial primary key, "patient_id" bigint, "professional_id" bigint, "date" date NOT NULL, "expiration" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (32.3ms)[0m  [1m[35mCREATE  INDEX  "index_permissions_on_patient_id" ON "permissions"  ("patient_id")[0m
+  [1m[35m (43.4ms)[0m  [1m[35mCREATE  INDEX  "index_permissions_on_professional_id" ON "permissions"  ("professional_id")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193644"]]
+  [1m[35m (21.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePatients (20171008193653)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (103.9ms)[0m  [1m[35mCREATE TABLE "patients" ("id" bigserial primary key, "rut" character varying NOT NULL, "name" character varying NOT NULL, "last_name" character varying NOT NULL, "age" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (49.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_patients_on_rut" ON "patients"  ("rut")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193653"]]
+  [1m[35m (19.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMovements (20171008193707)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (37.9ms)[0m  [1m[35mCREATE TABLE "movements" ("id" bigserial primary key, "consult_id" bigint, "movement_type_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (32.1ms)[0m  [1m[35mCREATE  INDEX  "index_movements_on_consult_id" ON "movements"  ("consult_id")[0m
+  [1m[35m (43.5ms)[0m  [1m[35mCREATE  INDEX  "index_movements_on_movement_type_id" ON "movements"  ("movement_type_id")[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193707"]]
+  [1m[35m (18.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMovementDetails (20171008193729)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (95.6ms)[0m  [1m[35mCREATE TABLE "movement_details" ("id" bigserial primary key, "movement_id" bigint, "key" character varying NOT NULL, "value" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (38.4ms)[0m  [1m[35mCREATE  INDEX  "index_movement_details_on_movement_id" ON "movement_details"  ("movement_id")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193729"]]
+  [1m[35m (17.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDocuments (20171008193739)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (52.0ms)[0m  [1m[35mCREATE TABLE "documents" ("id" bigserial primary key, "movement_id" bigint, "doc_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (38.4ms)[0m  [1m[35mCREATE  INDEX  "index_documents_on_movement_id" ON "documents"  ("movement_id")[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193739"]]
+  [1m[35m (20.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMedicalCenters (20171008193757)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (88.8ms)[0m  [1m[35mCREATE TABLE "medical_centers" ("id" bigserial primary key, "name" character varying NOT NULL, "address" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193757"]]
+  [1m[35m (6.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateConnectionTokens (20171008193803)
+  [1m[35m (1.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (85.2ms)[0m  [1m[35mCREATE TABLE "connection_tokens" ("id" bigserial primary key, "medical_center_id" bigint, "token" character varying NOT NULL, "expiration" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (38.6ms)[0m  [1m[35mCREATE  INDEX  "index_connection_tokens_on_medical_center_id" ON "connection_tokens"  ("medical_center_id")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193803"]]
+  [1m[35m (15.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMetrics (20171008193822)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (89.0ms)[0m  [1m[35mCREATE TABLE "metrics" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193822"]]
+  [1m[35m (13.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMeasurements (20171008193832)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (69.9ms)[0m  [1m[35mCREATE TABLE "measurements" ("id" bigserial primary key, "metric_id" bigint, "value" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (49.9ms)[0m  [1m[35mCREATE  INDEX  "index_measurements_on_metric_id" ON "measurements"  ("metric_id")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193832"]]
+  [1m[35m (13.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAccesses (20171008193844)
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (77.6ms)[0m  [1m[35mCREATE TABLE "accesses" ("id" bigserial primary key, "access_type" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193844"]]
+  [1m[35m (11.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateJoinTableMedicalCentersProfessionals (20171008195918)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "medical_centers_professionals" ("medical_center_id" bigint NOT NULL, "professional_id" bigint NOT NULL)[0m
+  [1m[35m (44.2ms)[0m  [1m[35mCREATE  INDEX  "index_medical_centers_professionals_on_medical_center_id" ON "medical_centers_professionals"  ("medical_center_id")[0m
+  [1m[35m (43.2ms)[0m  [1m[35mCREATE  INDEX  "index_medical_centers_professionals_on_professional_id" ON "medical_centers_professionals"  ("professional_id")[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008195918"]]
+  [1m[35m (21.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateJoinTableAccessesPermissions (20171008200738)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "accesses_permissions" ("access_id" bigint NOT NULL, "permission_id" bigint NOT NULL)[0m
+  [1m[35m (48.5ms)[0m  [1m[35mCREATE  INDEX  "index_accesses_permissions_on_access_id" ON "accesses_permissions"  ("access_id")[0m
+  [1m[35m (38.8ms)[0m  [1m[35mCREATE  INDEX  "index_accesses_permissions_on_permission_id" ON "accesses_permissions"  ("permission_id")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008200738"]]
+  [1m[35m (20.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMovementTypes (20171009150336)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (106.0ms)[0m  [1m[35mCREATE TABLE "movement_types" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (39.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_movement_types_on_name" ON "movement_types"  ("name")[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171009150336"]]
+  [1m[35m (11.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSpecialities (20171010235512)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (87.2ms)[0m  [1m[35mCREATE TABLE "specialities" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (37.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_specialities_on_name" ON "specialities"  ("name")[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171010235512"]]
+  [1m[35m (18.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-10-11 10:15:13.333123"], ["updated_at", "2017-10-11 10:15:13.333123"]]
+  [1m[35m (6.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(4769988618823049895)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "patients" ("rut", "name", "last_name", "age", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["rut", "20123234-2"], ["name", "Andrew"], ["last_name", "Soto"], ["age", 21], ["created_at", "2017-10-11 10:17:06.393994"], ["updated_at", "2017-10-11 10:17:06.393994"]]
+  [1m[35m (41.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.1ms)[0m  [1m[32mINSERT INTO "specialities" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Odontologia"], ["created_at", "2017-10-11 10:17:32.261847"], ["updated_at", "2017-10-11 10:17:32.261847"]]
+  [1m[35m (13.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSpeciality Load (0.3ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."name" = $1 LIMIT $2[0m  [["name", "Odontologia"], ["LIMIT", 1]]
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "professionals" ("rut", "name", "last_name", "age", "nationality", "job_title", "grant_date", "granting_entity", "speciality_id", "registration_number", "registration_date", "email", "phone", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"[0m  [["rut", "17234345-5"], ["name", "Jose"], ["last_name", "Sepulveda"], ["age", 25], ["nationality", "Chileno"], ["job_title", "Medico"], ["grant_date", "2017-10-11"], ["granting_entity", "Escuela de Medicina UC"], ["speciality_id", 1], ["registration_number", "24565"], ["registration_date", "2017-10-11"], ["email", "jose.sepulveda@medicinauc.cl"], ["phone", "94576927"], ["created_at", "2017-10-11 10:22:15.300976"], ["updated_at", "2017-10-11 10:22:15.300976"]]
+  [1m[35m (15.8ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/professionals" for 127.0.0.1 at 2017-10-11 07:22:40 -0300
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mProfessional Load (0.7ms)[0m  [1m[34mSELECT "professionals".* FROM "professionals"[0m
+  [1m[36mSpeciality Load (0.5ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/professionals" for 127.0.0.1 at 2017-10-11 07:24:36 -0300
+Started POST "/api/v1/professionals" for 127.0.0.1 at 2017-10-11 07:24:44 -0300
+Started POST "/api/v1/professionals" for 127.0.0.1 at 2017-10-11 07:25:28 -0300
+Started POST "/api/v1/professionals" for 127.0.0.1 at 2017-10-11 07:25:53 -0300
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSpeciality Load (1.2ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (2.2ms)[0m  [1m[32mINSERT INTO "professionals" ("rut", "name", "last_name", "age", "nationality", "job_title", "grant_date", "granting_entity", "speciality_id", "registration_number", "registration_date", "freelance", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"[0m  [["rut", "11.555.666-7"], ["name", "Nombre"], ["last_name", "Apellido "], ["age", 40], ["nationality", "Chilena"], ["job_title", "Título"], ["grant_date", "2012-01-01"], ["granting_entity", "Universidad"], ["speciality_id", 1], ["registration_number", "0987654321"], ["registration_date", "2017-02-05"], ["freelance", "t"], ["email", "correo@dir.cl"], ["created_at", "2017-10-11 10:25:53.808848"], ["updated_at", "2017-10-11 10:25:53.808848"]]
+  [1m[35m (20.7ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/professionals/1" for 127.0.0.1 at 2017-10-11 07:29:00 -0300
+  [1m[36mProfessional Load (0.4ms)[0m  [1m[34mSELECT  "professionals".* FROM "professionals" WHERE "professionals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSpeciality Load (0.4ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started GET "/api/v1/professionals/2" for 127.0.0.1 at 2017-10-11 07:29:06 -0300
+  [1m[36mProfessional Load (0.4ms)[0m  [1m[34mSELECT  "professionals".* FROM "professionals" WHERE "professionals"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSpeciality Load (0.4ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started GET "/api/v1/specialities" for 127.0.0.1 at 2017-10-11 07:29:26 -0300
+  [1m[36mSpeciality Load (0.3ms)[0m  [1m[34mSELECT "specialities".* FROM "specialities"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 07:34:10 -0300
+  [1m[36mPatient Load (0.9ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 07:35:53 -0300
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/consults/" for 127.0.0.1 at 2017-10-11 08:36:31 -0300
+  [1m[36mConsult Load (0.5ms)[0m  [1m[34mSELECT "consults".* FROM "consults"[0m
+Started GET "/api/v1/consults/" for 127.0.0.1 at 2017-10-11 08:36:55 -0300
+  [1m[36mConsult Load (0.4ms)[0m  [1m[34mSELECT "consults".* FROM "consults"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 08:58:39 -0300
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 08:58:56 -0300
+  [1m[36mPatient Load (0.9ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/consults/1/movements" for 127.0.0.1 at 2017-10-11 09:00:32 -0300
+  [1m[36mConsult Load (0.4ms)[0m  [1m[34mSELECT  "consults".* FROM "consults" WHERE "consults"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  
+NoMethodError (undefined method `movements' for nil:NilClass):
+  
+app/api/api.rb:37:in `block (4 levels) in <class:V1>'
+Started GET "/api/v1/consults/1/movements" for 127.0.0.1 at 2017-10-11 09:01:11 -0300
+  [1m[36mConsult Load (0.3ms)[0m  [1m[34mSELECT  "consults".* FROM "consults" WHERE "consults"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  
+NoMethodError (undefined method `movements' for nil:NilClass):
+  
+app/api/api.rb:37:in `block (4 levels) in <class:V1>'
+  [1m[36mPatient Load (0.6ms)[0m  [1m[34mSELECT  "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProfessional Load (0.7ms)[0m  [1m[34mSELECT  "professionals".* FROM "professionals" WHERE "professionals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/consults" for 127.0.0.1 at 2017-10-11 09:05:46 -0300
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/api/v1/consults" for 127.0.0.1 at 2017-10-11 09:07:11 -0300
+Started POST "/api/v1/consults" for 127.0.0.1 at 2017-10-11 09:07:25 -0300
+  
+ActiveModel::UnknownAttributeError (unknown attribute 'observation' for Consult.):
+  
+app/api/api.rb:23:in `block (2 levels) in <class:V1>'
+Started POST "/api/v1/consults" for 127.0.0.1 at 2017-10-11 09:07:54 -0300
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Load (0.7ms)[0m  [1m[34mSELECT  "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProfessional Load (0.5ms)[0m  [1m[34mSELECT  "professionals".* FROM "professionals" WHERE "professionals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "consults" ("patient_id", "professional_id", "date", "reason", "symptoms", "observations", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["patient_id", 1], ["professional_id", 1], ["date", "2017-02-02"], ["reason", "reason"], ["symptoms", "sick"], ["observations", "patient is sick"], ["created_at", "2017-10-11 12:07:54.078099"], ["updated_at", "2017-10-11 12:07:54.078099"]]
+  [1m[35m (23.3ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/consults" for 127.0.0.1 at 2017-10-11 09:14:41 -0300
+Started GET "/api/v1/consults" for 127.0.0.1 at 2017-10-11 09:15:04 -0300
+  [1m[36mConsult Load (0.5ms)[0m  [1m[34mSELECT "consults".* FROM "consults"[0m
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT  "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProfessional Load (0.4ms)[0m  [1m[34mSELECT  "professionals".* FROM "professionals" WHERE "professionals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSpeciality Load (0.3ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/consults" for 127.0.0.1 at 2017-10-11 09:15:39 -0300
+Started POST "/api/v1/consults" for 127.0.0.1 at 2017-10-11 09:21:02 -0300
+Started POST "/api/v1/consults" for 127.0.0.1 at 2017-10-11 09:21:37 -0300
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPatient Load (1.3ms)[0m  [1m[34mSELECT  "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProfessional Load (1.4ms)[0m  [1m[34mSELECT  "professionals".* FROM "professionals" WHERE "professionals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "consults" ("patient_id", "professional_id", "date", "reason", "symptoms", "observations", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["patient_id", 1], ["professional_id", 1], ["date", "2017-02-02"], ["reason", "headache"], ["symptoms", "headache, sick"], ["observations", "patient is sick"], ["created_at", "2017-10-11 12:21:37.763229"], ["updated_at", "2017-10-11 12:21:37.763229"]]
+  [1m[35m (9.6ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/consults" for 127.0.0.1 at 2017-10-11 09:22:49 -0300
+  [1m[36mConsult Load (0.4ms)[0m  [1m[34mSELECT "consults".* FROM "consults"[0m
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT  "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProfessional Load (0.4ms)[0m  [1m[34mSELECT  "professionals".* FROM "professionals" WHERE "professionals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSpeciality Load (1.1ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Patient Load (0.0ms)[0m  [1m[34mSELECT  "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Professional Load (0.0ms)[0m  [1m[34mSELECT  "professionals".* FROM "professionals" WHERE "professionals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Speciality Load (0.0ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:04:21 -0300
+  [1m[35m (25.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mPatient Load (45.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:04:42 -0300
+  [1m[36mPatient Load (0.6ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:05:09 -0300
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:05:18 -0300
+  [1m[36mPatient Load (1.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:08:09 -0300
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:08:11 -0300
+  [1m[36mPatient Load (0.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:08:31 -0300
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:08:42 -0300
+  [1m[36mPatient Load (1.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:08:52 -0300
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:08:56 -0300
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:10:26 -0300
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:10:33 -0300
+  [1m[36mPatient Load (1.0ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:10:36 -0300
+  [1m[36mPatient Load (1.0ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:10:48 -0300
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:11:26 -0300
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:11:38 -0300
+  [1m[36mPatient Load (1.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+Started GET "/api/v1/patients/" for 127.0.0.1 at 2017-10-11 15:12:02 -0300
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients"[0m
+  [1m[35m (23.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (16.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (362.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "unicorn-api_development"[0m
+  [1m[35m (244.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "unicorn-api_test"[0m
+  [1m[35m (128.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (92.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4769988618823049895)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateProfessionals (20171008192849)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (100.0ms)[0m  [1m[35mCREATE TABLE "professionals" ("id" bigserial primary key, "rut" character varying NOT NULL, "name" character varying NOT NULL, "last_name" character varying NOT NULL, "age" integer NOT NULL, "nationality" character varying NOT NULL, "job_title" character varying NOT NULL, "grant_date" date NOT NULL, "granting_entity" character varying NOT NULL, "speciality_id" bigint, "registration_number" character varying NOT NULL, "registration_date" date NOT NULL, "freelance" boolean DEFAULT 'f', "email" character varying NOT NULL, "phone" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (51.2ms)[0m  [1m[35mCREATE  INDEX  "index_professionals_on_speciality_id" ON "professionals"  ("speciality_id")[0m
+  [1m[35m (48.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_professionals_on_rut" ON "professionals"  ("rut")[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008192849"]]
+  [1m[35m (9.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateConsults (20171008193633)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (81.7ms)[0m  [1m[35mCREATE TABLE "consults" ("id" bigserial primary key, "patient_id" bigint, "professional_id" bigint, "date" date NOT NULL, "reason" character varying NOT NULL, "symptoms" character varying NOT NULL, "observations" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (47.1ms)[0m  [1m[35mCREATE  INDEX  "index_consults_on_patient_id" ON "consults"  ("patient_id")[0m
+  [1m[35m (41.0ms)[0m  [1m[35mCREATE  INDEX  "index_consults_on_professional_id" ON "consults"  ("professional_id")[0m
+  [1m[35mSQL (8.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193633"]]
+  [1m[35m (19.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePermissions (20171008193644)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (43.3ms)[0m  [1m[35mCREATE TABLE "permissions" ("id" bigserial primary key, "patient_id" bigint, "professional_id" bigint, "date" date NOT NULL, "expiration" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (30.7ms)[0m  [1m[35mCREATE  INDEX  "index_permissions_on_patient_id" ON "permissions"  ("patient_id")[0m
+  [1m[35m (42.4ms)[0m  [1m[35mCREATE  INDEX  "index_permissions_on_professional_id" ON "permissions"  ("professional_id")[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193644"]]
+  [1m[35m (26.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePatients (20171008193653)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (79.4ms)[0m  [1m[35mCREATE TABLE "patients" ("id" bigserial primary key, "rut" character varying NOT NULL, "name" character varying NOT NULL, "last_name" character varying NOT NULL, "age" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (48.4ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_patients_on_rut" ON "patients"  ("rut")[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193653"]]
+  [1m[35m (14.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMovements (20171008193707)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (99.9ms)[0m  [1m[35mCREATE TABLE "movements" ("id" bigserial primary key, "consult_id" bigint, "type" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (38.7ms)[0m  [1m[35mCREATE  INDEX  "index_movements_on_consult_id" ON "movements"  ("consult_id")[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193707"]]
+  [1m[35m (13.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMovementDetails (20171008193729)
+  [1m[35m (1.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (88.6ms)[0m  [1m[35mCREATE TABLE "movement_details" ("id" bigserial primary key, "movement_id" bigint, "key" character varying NOT NULL, "value" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (52.4ms)[0m  [1m[35mCREATE  INDEX  "index_movement_details_on_movement_id" ON "movement_details"  ("movement_id")[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193729"]]
+  [1m[35m (20.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDocuments (20171008193739)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (46.9ms)[0m  [1m[35mCREATE TABLE "documents" ("id" bigserial primary key, "movement_id" bigint, "doc_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (37.7ms)[0m  [1m[35mCREATE  INDEX  "index_documents_on_movement_id" ON "documents"  ("movement_id")[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193739"]]
+  [1m[35m (20.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMedicalCenters (20171008193757)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (84.2ms)[0m  [1m[35mCREATE TABLE "medical_centers" ("id" bigserial primary key, "name" character varying NOT NULL, "address" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193757"]]
+  [1m[35m (20.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateConnectionTokens (20171008193803)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (94.5ms)[0m  [1m[35mCREATE TABLE "connection_tokens" ("id" bigserial primary key, "medical_center_id" bigint, "token" character varying NOT NULL, "expiration" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (37.5ms)[0m  [1m[35mCREATE  INDEX  "index_connection_tokens_on_medical_center_id" ON "connection_tokens"  ("medical_center_id")[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193803"]]
+  [1m[35m (17.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMetrics (20171008193822)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (84.5ms)[0m  [1m[35mCREATE TABLE "metrics" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193822"]]
+  [1m[35m (17.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMeasurements (20171008193832)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (83.7ms)[0m  [1m[35mCREATE TABLE "measurements" ("id" bigserial primary key, "metric_id" bigint, "value" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (38.1ms)[0m  [1m[35mCREATE  INDEX  "index_measurements_on_metric_id" ON "measurements"  ("metric_id")[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193832"]]
+  [1m[35m (15.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAccesses (20171008193844)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (85.5ms)[0m  [1m[35mCREATE TABLE "accesses" ("id" bigserial primary key, "access_type" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008193844"]]
+  [1m[35m (16.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateJoinTableMedicalCentersProfessionals (20171008195918)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "medical_centers_professionals" ("medical_center_id" bigint NOT NULL, "professional_id" bigint NOT NULL)[0m
+  [1m[35m (50.9ms)[0m  [1m[35mCREATE  INDEX  "index_medical_centers_professionals_on_medical_center_id" ON "medical_centers_professionals"  ("medical_center_id")[0m
+  [1m[35m (40.3ms)[0m  [1m[35mCREATE  INDEX  "index_medical_centers_professionals_on_professional_id" ON "medical_centers_professionals"  ("professional_id")[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008195918"]]
+  [1m[35m (14.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateJoinTableAccessesPermissions (20171008200738)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "accesses_permissions" ("access_id" bigint NOT NULL, "permission_id" bigint NOT NULL)[0m
+  [1m[35m (42.6ms)[0m  [1m[35mCREATE  INDEX  "index_accesses_permissions_on_access_id" ON "accesses_permissions"  ("access_id")[0m
+  [1m[35m (48.5ms)[0m  [1m[35mCREATE  INDEX  "index_accesses_permissions_on_permission_id" ON "accesses_permissions"  ("permission_id")[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171008200738"]]
+  [1m[35m (13.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSpecialities (20171010235512)
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (530.3ms)[0m  [1m[35mCREATE TABLE "specialities" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (41.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_specialities_on_name" ON "specialities"  ("name")[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171010235512"]]
+  [1m[35m (11.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-10-24 22:31:54.010452"], ["updated_at", "2017-10-24 22:31:54.010452"]]
+  [1m[35m (12.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(4769988618823049895)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "patients" ("name", "last_name", "age", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Carlos"], ["last_name", "Perez"], ["age", 21], ["created_at", "2017-10-24 22:36:14.684920"], ["updated_at", "2017-10-24 22:36:14.684920"]]
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.1ms)[0m  [1m[32mINSERT INTO "patients" ("rut", "name", "last_name", "age", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["rut", "18345467-2"], ["name", "Carlos"], ["last_name", "Perez"], ["age", 21], ["created_at", "2017-10-24 22:36:14.684920"], ["updated_at", "2017-10-24 22:36:14.684920"]]
+  [1m[35m (30.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.3ms)[0m  [1m[32mINSERT INTO "specialities" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Medicina general"], ["created_at", "2017-10-24 22:41:03.858916"], ["updated_at", "2017-10-24 22:41:03.858916"]]
+  [1m[35m (31.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.8ms)[0m  [1m[32mINSERT INTO "professionals" ("rut", "name", "last_name", "age", "nationality", "job_title", "grant_date", "granting_entity", "speciality_id", "registration_number", "registration_date", "freelance", "email", "phone", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING "id"[0m  [["rut", "14396345-5"], ["name", "Gabriel"], ["last_name", "Coloma"], ["age", 36], ["nationality", "Chileno"], ["job_title", "Medico"], ["grant_date", "2017-10-24"], ["granting_entity", "UC"], ["speciality_id", 1], ["registration_number", "123345"], ["registration_date", "2017-10-24"], ["freelance", "t"], ["email", "gabriel.coloma@uc.cl"], ["phone", "845654342"], ["created_at", "2017-10-24 22:43:00.716943"], ["updated_at", "2017-10-24 22:43:00.716943"]]
+  [1m[35m (19.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT  "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mPatient Load (1.3ms)[0m  [1m[34mSELECT  "patients".* FROM "patients" WHERE "patients"."name" = $1 LIMIT $2[0m  [["name", "Carlos"], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.9ms)[0m  [1m[32mINSERT INTO "consults" ("patient_id", "professional_id", "date", "reason", "observations", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["patient_id", 2], ["professional_id", 1], ["date", "2017-10-24"], ["reason", "headache"], ["observations", "very sick patient"], ["created_at", "2017-10-24 22:46:09.367595"], ["updated_at", "2017-10-24 22:46:09.367595"]]
+  [1m[35m (0.8ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.1ms)[0m  [1m[32mINSERT INTO "consults" ("patient_id", "professional_id", "date", "reason", "symptoms", "observations", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["patient_id", 2], ["professional_id", 1], ["date", "2017-10-24"], ["reason", "sick"], ["symptoms", "headache"], ["observations", "very sick patient"], ["created_at", "2017-10-24 22:46:09.367595"], ["updated_at", "2017-10-24 22:46:09.367595"]]
+  [1m[35m (23.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.2ms)[0m  [1m[32mINSERT INTO "movements" ("consult_id", "type", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["consult_id", 2], ["type", "Exam"], ["created_at", "2017-10-24 22:47:39.032333"], ["updated_at", "2017-10-24 22:47:39.032333"]]
+  [1m[35m (26.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "movements" ("consult_id", "type", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["consult_id", 2], ["type", "Diagnostic"], ["created_at", "2017-10-24 22:48:32.389022"], ["updated_at", "2017-10-24 22:48:32.389022"]]
+  [1m[35m (27.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "movements" ("consult_id", "type", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["consult_id", 2], ["type", "License"], ["created_at", "2017-10-24 22:49:00.729158"], ["updated_at", "2017-10-24 22:49:00.729158"]]
+  [1m[35m (32.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "movements" ("consult_id", "type", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["consult_id", 2], ["type", "Prescription"], ["created_at", "2017-10-24 22:50:49.637488"], ["updated_at", "2017-10-24 22:50:49.637488"]]
+  [1m[35m (24.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.7ms)[0m  [1m[32mINSERT INTO "movements" ("consult_id", "type", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["consult_id", 2], ["type", "Procedure"], ["created_at", "2017-10-24 22:51:11.662200"], ["updated_at", "2017-10-24 22:51:11.662200"]]
+  [1m[35m (23.2ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for 127.0.0.1 at 2017-10-24 20:04:16 -0300
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/noteip110/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/noteip110/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb (3.2ms)
+Completed 200 OK in 32ms (Views: 14.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2017-10-24 20:04:16 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  [1m[36mExam Load (0.8ms)[0m  [1m[34mSELECT  "movements".* FROM "movements" WHERE "movements"."type" IN ('Exam') LIMIT $1[0m  [["LIMIT", 11]]
+Started GET "/" for 127.0.0.1 at 2017-10-24 20:34:45 -0300
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/noteip110/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/noteip110/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb (3.1ms)
+Completed 200 OK in 10ms (Views: 9.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/exams" for 127.0.0.1 at 2017-10-24 20:35:05 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/exams"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/api/v1/exams" for 127.0.0.1 at 2017-10-24 20:35:59 -0300
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+NoMethodError (undefined method `unexpose' for #<Class:0x0055f5824a8d28>):
+  
+app/api/entities/exam.rb:3:in `<class:Exam>'
+app/api/entities/exam.rb:2:in `<module:Entities>'
+app/api/entities/exam.rb:1:in `<top (required)>'
+app/api/v1/exams.rb:6:in `block (2 levels) in <class:Exams>'
+Started GET "/api/v1/exams" for 127.0.0.1 at 2017-10-24 20:38:08 -0300
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mExam Load (0.6ms)[0m  [1m[34mSELECT "movements".* FROM "movements" WHERE "movements"."type" IN ('Exam')[0m
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 1]]
+Started GET "/api/v1/movements" for 127.0.0.1 at 2017-10-24 20:38:29 -0300
+  [1m[36mMovement Load (0.5ms)[0m  [1m[34mSELECT "movements".* FROM "movements"[0m
+  [1m[36mMovementDetail Load (0.5ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mDocument Load (0.7ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 5]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 5]]
+Started GET "/api/v1/movements" for 127.0.0.1 at 2017-10-24 20:53:46 -0300
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mMovement Load (0.6ms)[0m  [1m[34mSELECT "movements".* FROM "movements"[0m
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mMovementDetail Load (0.8ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 5]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 5]]
+Started GET "/api/v1/diagnostics" for 127.0.0.1 at 2017-10-24 20:54:20 -0300
+  [1m[36mDiagnostic Load (0.8ms)[0m  [1m[34mSELECT "movements".* FROM "movements" WHERE "movements"."type" IN ('Diagnostic')[0m
+  [1m[36mMovementDetail Load (0.6ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mDocument Load (0.8ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 2]]
+Started GET "/api/v1/exams" for 127.0.0.1 at 2017-10-24 20:54:30 -0300
+  [1m[36mExam Load (0.5ms)[0m  [1m[34mSELECT "movements".* FROM "movements" WHERE "movements"."type" IN ('Exam')[0m
+  [1m[36mMovementDetail Load (0.5ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mDocument Load (0.5ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 1]]
+Started GET "/api/v1/licenses" for 127.0.0.1 at 2017-10-24 20:54:46 -0300
+  [1m[36mLicense Load (0.7ms)[0m  [1m[34mSELECT "movements".* FROM "movements" WHERE "movements"."type" IN ('License')[0m
+  [1m[36mMovementDetail Load (1.6ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mDocument Load (3.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 3]]
+Started GET "/api/v1/prescriptions" for 127.0.0.1 at 2017-10-24 20:55:00 -0300
+  [1m[36mPrescription Load (0.8ms)[0m  [1m[34mSELECT "movements".* FROM "movements" WHERE "movements"."type" IN ('Prescription')[0m
+  [1m[36mMovementDetail Load (1.9ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mDocument Load (1.0ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 4]]
+Started GET "/api/v1/procedures" for 127.0.0.1 at 2017-10-24 20:55:08 -0300
+  [1m[36mProcedure Load (0.4ms)[0m  [1m[34mSELECT "movements".* FROM "movements" WHERE "movements"."type" IN ('Procedure')[0m
+  [1m[36mMovementDetail Load (1.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 5]]
+  [1m[36mDocument Load (0.5ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 5]]
+Started GET "/api/v1/consults" for 127.0.0.1 at 2017-10-24 20:55:41 -0300
+  [1m[36mConsult Load (0.7ms)[0m  [1m[34mSELECT "consults".* FROM "consults"[0m
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT  "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mProfessional Load (2.5ms)[0m  [1m[34mSELECT  "professionals".* FROM "professionals" WHERE "professionals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSpeciality Load (0.4ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started GET "/api/v1/consults/1" for 127.0.0.1 at 2017-10-24 20:55:44 -0300
+  [1m[36mConsult Load (0.7ms)[0m  [1m[34mSELECT  "consults".* FROM "consults" WHERE "consults"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started GET "/api/v1/consults" for 127.0.0.1 at 2017-10-24 20:55:46 -0300
+  [1m[36mConsult Load (0.3ms)[0m  [1m[34mSELECT "consults".* FROM "consults"[0m
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT  "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mProfessional Load (0.4ms)[0m  [1m[34mSELECT  "professionals".* FROM "professionals" WHERE "professionals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSpeciality Load (0.6ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started GET "/api/v1/consults/2" for 127.0.0.1 at 2017-10-24 20:55:49 -0300
+  [1m[36mConsult Load (0.5ms)[0m  [1m[34mSELECT  "consults".* FROM "consults" WHERE "consults"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mPatient Load (0.6ms)[0m  [1m[34mSELECT  "patients".* FROM "patients" WHERE "patients"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mProfessional Load (0.6ms)[0m  [1m[34mSELECT  "professionals".* FROM "professionals" WHERE "professionals"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSpeciality Load (0.6ms)[0m  [1m[34mSELECT  "specialities".* FROM "specialities" WHERE "specialities"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Started GET "/api/v1/movements" for 127.0.0.1 at 2017-10-24 20:57:16 -0300
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mMovement Load (0.6ms)[0m  [1m[34mSELECT "movements".* FROM "movements"[0m
+  [1m[36mMovementDetail Load (0.5ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 5]]
+  [1m[36mDocument Load (1.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 5]]
+Started POST "/api/v1/movements" for 127.0.0.1 at 2017-10-24 20:58:13 -0300
+  
+ActiveRecord::AssociationTypeMismatch (Consult(#47287546035920) expected, got {"id"=>2, "patient"=>{"id"=>2, "name"=>"Carlos", "last_name"=>"Perez", "age"=>21}, "professional"=>{"id"=>1, "name"=>"Gabriel", "last_name"=>"Coloma", "age"=>36, "nationality"=>"Chileno", "speciality"=>{"id"=>1, "name"=>"Medicina general"}, "registration_date"=>"2017-10-24", "freelance"=>true, "grant_info"=>{"job_title"=>"Medico", "grant_date"=>"2017-10-24", "granting_entity"=>"UC"}}, "date"=>"2017-10-24", "reason"=>"sick", "symptoms"=>"headache", "observations"=>"very sick patient"} which is an instance of ActiveSupport::HashWithIndifferentAccess(#47287535560260)):
+  
+app/api/v1/movements.rb:14:in `block (2 levels) in <class:Movements>'
+Started POST "/api/v1/movements" for 127.0.0.1 at 2017-10-24 21:01:28 -0300
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::AssociationTypeMismatch (Consult(#47389272666160) expected, got {"id"=>2, "patient"=>{"id"=>2, "name"=>"Carlos", "last_name"=>"Perez", "age"=>21}, "professional"=>{"id"=>1, "name"=>"Gabriel", "last_name"=>"Coloma", "age"=>36, "nationality"=>"Chileno", "speciality"=>{"id"=>1, "name"=>"Medicina general"}, "registration_date"=>"2017-10-24", "freelance"=>true, "grant_info"=>{"job_title"=>"Medico", "grant_date"=>"2017-10-24", "granting_entity"=>"UC"}}, "date"=>"2017-10-24", "reason"=>"sick", "symptoms"=>"headache", "observations"=>"very sick patient"} which is an instance of ActiveSupport::HashWithIndifferentAccess(#47389262773760)):
+  
+app/api/v1/movements.rb:14:in `block (2 levels) in <class:Movements>'
+Started POST "/api/v1/movements" for 127.0.0.1 at 2017-10-24 21:15:39 -0300
+  
+SyntaxError (/home/noteip110/Escritorio/FullStack-Dev/u_project/unicorn-api/app/api/v1/movements.rb:11: syntax error, unexpected tLABEL, expecting keyword_do or '{' or '('
+onsult_id, type: Integer desc: 'Consult asociated to movemen
+                              ^):
+  
+app/api/v1/movements.rb:11: syntax error, unexpected tLABEL, expecting keyword_do or '{' or '('
+app/api/api.rb:9:in `block in <class:API>'
+app/api/api.rb:6:in `<class:API>'
+app/api/api.rb:2:in `<module:API>'
+app/api/api.rb:1:in `<top (required)>'
+config/routes.rb:3:in `block in <top (required)>'
+config/routes.rb:1:in `<top (required)>'
+Started POST "/api/v1/movements" for 127.0.0.1 at 2017-10-24 21:18:08 -0300
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mConsult Load (0.5ms)[0m  [1m[34mSELECT  "consults".* FROM "consults" WHERE "consults"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "movements" ("consult_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["consult_id", 2], ["created_at", "2017-10-25 00:18:08.714953"], ["updated_at", "2017-10-25 00:18:08.714953"]]
+  [1m[35m (31.3ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/movements" for 127.0.0.1 at 2017-10-24 21:18:19 -0300
+  [1m[36mMovement Load (0.7ms)[0m  [1m[34mSELECT "movements".* FROM "movements"[0m
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mMovementDetail Load (0.6ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 5]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 5]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 6]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 6]]
+Started POST "/api/v1/diagnostics" for 127.0.0.1 at 2017-10-24 21:23:04 -0300
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mConsult Load (0.5ms)[0m  [1m[34mSELECT  "consults".* FROM "consults" WHERE "consults"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "movements" ("consult_id", "type", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["consult_id", 2], ["type", "Diagnostic"], ["created_at", "2017-10-25 00:23:14.199410"], ["updated_at", "2017-10-25 00:23:14.199410"]]
+  [1m[35m (28.7ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/exams" for 127.0.0.1 at 2017-10-24 21:23:29 -0300
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mConsult Load (0.4ms)[0m  [1m[34mSELECT  "consults".* FROM "consults" WHERE "consults"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "movements" ("consult_id", "type", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["consult_id", 2], ["type", "Exam"], ["created_at", "2017-10-25 00:23:29.553460"], ["updated_at", "2017-10-25 00:23:29.553460"]]
+  [1m[35m (31.0ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/prescriptions" for 127.0.0.1 at 2017-10-24 21:25:15 -0300
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mConsult Load (0.5ms)[0m  [1m[34mSELECT  "consults".* FROM "consults" WHERE "consults"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "movements" ("consult_id", "type", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["consult_id", 2], ["type", "Prescription"], ["created_at", "2017-10-25 00:25:15.930735"], ["updated_at", "2017-10-25 00:25:15.930735"]]
+  [1m[35m (24.6ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/procedures" for 127.0.0.1 at 2017-10-24 21:25:24 -0300
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mConsult Load (0.5ms)[0m  [1m[34mSELECT  "consults".* FROM "consults" WHERE "consults"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "movements" ("consult_id", "type", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["consult_id", 2], ["type", "Procedure"], ["created_at", "2017-10-25 00:25:24.346632"], ["updated_at", "2017-10-25 00:25:24.346632"]]
+  [1m[35m (31.8ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/movements" for 127.0.0.1 at 2017-10-24 21:25:34 -0300
+  [1m[36mMovement Load (0.4ms)[0m  [1m[34mSELECT "movements".* FROM "movements"[0m
+  [1m[36mMovementDetail Load (0.5ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mDocument Load (0.5ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 5]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 5]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 6]]
+  [1m[36mDocument Load (1.2ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 6]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 7]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 7]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 8]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 8]]
+  [1m[36mMovementDetail Load (0.6ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 9]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 9]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 10]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 10]]
+Started POST "/api/v1/licenses" for 127.0.0.1 at 2017-10-24 21:25:48 -0300
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mConsult Load (0.6ms)[0m  [1m[34mSELECT  "consults".* FROM "consults" WHERE "consults"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "movements" ("consult_id", "type", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["consult_id", 2], ["type", "License"], ["created_at", "2017-10-25 00:25:48.588542"], ["updated_at", "2017-10-25 00:25:48.588542"]]
+  [1m[35m (24.1ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/licenses" for 127.0.0.1 at 2017-10-24 21:25:54 -0300
+  [1m[36mLicense Load (1.1ms)[0m  [1m[34mSELECT "movements".* FROM "movements" WHERE "movements"."type" IN ('License')[0m
+  [1m[36mMovementDetail Load (0.6ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mDocument Load (0.6ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 11]]
+  [1m[36mDocument Load (0.4ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 11]]
+Started GET "/api/v1/movements" for 127.0.0.1 at 2017-10-24 21:26:03 -0300
+  [1m[36mMovement Load (0.6ms)[0m  [1m[34mSELECT "movements".* FROM "movements"[0m
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mDocument Load (3.9ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 1]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 2]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 3]]
+  [1m[36mMovementDetail Load (3.9ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 4]]
+  [1m[36mMovementDetail Load (1.0ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 5]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 5]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 6]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 6]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 7]]
+  [1m[36mDocument Load (1.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 7]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 8]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 8]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 9]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 9]]
+  [1m[36mMovementDetail Load (0.3ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 10]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 10]]
+  [1m[36mMovementDetail Load (0.4ms)[0m  [1m[34mSELECT "movement_details".* FROM "movement_details" WHERE "movement_details"."movement_id" = $1[0m  [["movement_id", 11]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."movement_id" = $1[0m  [["movement_id", 11]]

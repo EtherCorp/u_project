@@ -7,5 +7,6 @@ module Entities
     expose :reason
     expose :symptoms
     expose :observations
+    expose :movements, using: Entities::Movement
   end
 end

@@ -24,30 +24,34 @@ module V1
         requires :freelance, type: Boolean, desc: 'Is freelance'
       end
       post do
-        professional = Professional.new params
-        professional.save!
+        professional = Professional.create_from_params params
+        error! 'Unprocessable Entity', 422 unless professional.save
         professional
       end
 
       route_param :id do
         desc 'Get professional by ID'
         get do
-          present Professional.find_by(id: params[:id]),
-                  with: Entities::Professional
+          professional = Professional.find_by_id(params[:id])
+          error! 'Not Found', 404 unless professional
+          present professional, with: Entities::Professional
         end
 
         resource :consults do
           desc 'Get all consults from a professional'
           get do
-            present Professional.find_by(id: params[:id]).consults, with: Entities::Consult
+            professional = Professional.find_by_id(params[:id])
+            error! 'Not Found', 404 unless professional
+            present professional.consults, with: Entities::Consult
           end
         end
 
         resource :medical_centers do
           desc 'Get medical center(s) where a specified professional works'
           get do
-            present Professional.find_by(id: params[:id]).medical_centers,
-                    with: Entities::MedicalCenter
+            professional = Professional.find_by_id(params[:id])
+            error! 'Not Found', 404 unless professional
+            present professional.medical_centers, with: Entities::MedicalCenter
           end
         end
       end

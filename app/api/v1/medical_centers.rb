@@ -12,23 +12,25 @@ module V1
         requires :address, type: String, desc: 'Address'
       end
       post do
-        med_center = MedicalCenter.new params
-        med_center.save!
-        med_center
+        medical_center = MedicalCenter.create_from_params params
+        error! 'Unprocessable Entity', 422 unless medical_center.save
+        medical_center
       end
 
       route_param :id do
         desc 'Get medical center by ID'
         get do
-          present MedicalCenter.find_by(id: params[:id]),
-                  with: Entities::MedicalCenter
+          medical_cemter = MedicalCenter.find_by_id(params[:id])
+          error! 'Not Found', 404 unless medical_cemter
+          present medical_cemter, with: Entities::MedicalCenter
         end
 
         resource :professionals do
           desc 'Get all professionals from a specified medical center'
           get do
-            present MedicalCenter.find_by(id: params[:id]).professionals,
-                    with: Entities::Professional
+            medical_center = medical_center.find_by_id(params[:id])
+            error! 'Not Found', 404 unless medical_center
+            present medical_center.professionales, with: Entities::Professional
           end
         end
       end
