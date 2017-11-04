@@ -54,6 +54,16 @@ module V1
             present professional.medical_centers, with: Entities::MedicalCenter
           end
         end
+
+        resource :permissions do
+          desc 'Get all permissions from a specific professional'
+          get do
+            professional = Professional.find_by_id(params[:id])
+            error! 'Not Found', 404 unless professional
+            present professional.permissions,
+                    with: Entities::Permission
+          end
+        end
       end
     end
   end

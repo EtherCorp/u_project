@@ -28,9 +28,19 @@ module V1
         resource :professionals do
           desc 'Get all professionals from a specified medical center'
           get do
-            medical_center = medical_center.find_by_id(params[:id])
+            medical_center = MedicalCenter.find_by_id(params[:id])
             error! 'Not Found', 404 unless medical_center
-            present medical_center.professionales, with: Entities::Professional
+            present medical_center.professionals, with: Entities::Professional
+          end
+        end
+
+        resource :connection_tokens do
+          desc 'Get all connection tokens from a specified medical center'
+          get do
+            medical_center = MedicalCenter.find_by_id(params[:id])
+            error! 'Not Found', 404 unless medical_center
+            present medical_center.connection_tokens,
+                    with: Entities::ConnectionToken
           end
         end
       end

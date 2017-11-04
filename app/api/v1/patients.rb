@@ -42,39 +42,58 @@ module V1
           get do
             patient = Patient.find_by_id(params[:id])
             error! 'Not Found', 404 unless patient
-            present patient.movements_by_type('Exam'), with: Entities::Movement
+            present patient.movements_by_type('Exam'),
+                    with: Entities::Movement
           end
         end
+
         resource :licenses do
           desc 'Get all licenses of a patient'
           get do
             patient = Patient.find_by_id(params[:id])
             error! 'Not Found', 404 unless patient
-            present patient.movements_by_type('License'), with: Entities::Movement
+            present patient.movements_by_type('License'),
+                    with: Entities::Movement
           end
         end
+
         resource :prescriptions do
           desc 'Get all prescriptions of a patient'
           get do
             patient = Patient.find_by_id(params[:id])
             error! 'Not Found', 404 unless patient
-            present patient.movements_by_type('Prescription'), with: Entities::Movement
+            present patient.movements_by_type('Prescription'),
+                    with: Entities::Movement
           end
         end
+
         resource :procedures do
           desc 'Get all procedures of a patient'
           get do
             patient = Patient.find_by_id(params[:id])
             error! 'Not Found', 404 unless patient
-            present patient.movements_by_type('Procedures'), with: Entities::Movement
+            present patient.movements_by_type('Procedures'),
+                    with: Entities::Movement
           end
         end
+
         resource :diagnostics do
           desc 'Get all procedures of a patient'
           get do
             patient = Patient.find_by_id(params[:id])
             error! 'Not Found', 404 unless patient
-            present patient.movements_by_type('Diagnostic'), with: Entities::Movement
+            present patient.movements_by_type('Diagnostic'),
+                    with: Entities::Movement
+          end
+        end
+
+        resource :permissions do
+          desc 'Get all permissions from a specific patient'
+          get do
+            patient = Patient.find_by_id(params[:id])
+            error! 'Not Found', 404 unless patient
+            present patient.permissions,
+                    with: Entities::Permission
           end
         end
       end
