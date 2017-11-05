@@ -1,2 +1,0 @@
-class Procedure < Movement
-end

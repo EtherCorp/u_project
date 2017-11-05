@@ -1,2 +1,0 @@
-class Diagnostic < Movement
-end
