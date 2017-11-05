@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20171029151120) do
 
   create_table "movements", force: :cascade do |t|
     t.bigint "consult_id"
-    t.string "type"
+    t.string "movement_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["consult_id"], name: "index_movements_on_consult_id"
