@@ -1,2 +1,0 @@
-class License < Movement
-end

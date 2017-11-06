@@ -47,20 +47,56 @@ pat1 = Patient.create(rut: '12.345.678-9',
 # Consulta
 cons1 = Consult.create(patient_id: pat1.id,
                        professional_id: pro2.id,
-                       date: '2017-01-01',
+                       date: '2017-01-01 12:34:56',
                        reason: 'Causa',
                        symptoms: 'Síntomas',
                        observations: 'Observaciones')
 
-# Tipos de movimiento
-type1 = MovementType.create(name: 'Movimiento 1')
-type2 = MovementType.create(name: 'Movimiento 2')
-
 # Movimientos
 mov1 = Movement.create(consult_id: cons1.id,
-                       movement_type_id: type1.id)
+                       movement_type: 'Tipo 1')
 mov2 = Movement.create(consult_id: cons1.id,
-                       movement_type_id: type2.id)
+                       movement_type: 'Tipo 2')
 
 cons1.movements << mov1
 cons1.movements << mov2
+
+# Métricas
+metric1 = Metric.create(name: 'Métrica 1')
+metric2 = Metric.create(name: 'Métrica 2')
+
+# Mediciones
+Measurement.create(metric_id: metric1.id,
+                   value: 'Valor 1')
+Measurement.create(metric_id: metric1.id,
+                   value: 'Valor 2')
+Measurement.create(metric_id: metric2.id,
+                   value: 'Valor 1')
+Measurement.create(metric_id: metric2.id,
+                   value: 'Valor 2')
+
+# Tokens de conexión
+ConnectionToken.create(medical_center_id: mc1.id,
+                       token: 'asdfghjkl1234567890',
+                       expiration: '2017-11-05')
+ConnectionToken.create(medical_center_id: mc1.id,
+                       token: '1234567890asdfghjkl',
+                       expiration: '2017-11-05')
+
+# Accesos
+ac1 = Access.create(access_type: 'Tipo 1')
+ac2 = Access.create(access_type: 'Tipo 2')
+
+# Permisos
+per1 = Permission.create(patient_id: pat1.id,
+                         professional_id: pro1.id,
+                         date: '2017-11-02',
+                         expiration: '2017-11-04')
+per2 = Permission.create(patient_id: pat1.id,
+                         professional_id: pro2.id,
+                         date: '2017-11-03',
+                         expiration: '2017-11-05')
+
+per1.accesses << ac1
+per2.accesses << ac1
+per2.accesses << ac2
