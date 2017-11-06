@@ -10,11 +10,14 @@ module V1
       params do
         requires :medical_center_id, type: Integer, desc: 'Medical center ID'
         requires :active, type: Boolean, desc: 'Status token'
-        requires :driver, type: String, desc: 'Status token'
+        requires :driver, type: String, desc: 'Driver medical center'
       end
       post do
         token = ConnectionToken.create_from_params params
         error! 'Unprocessable Entity', 422 unless token.save
+        payload = { medical_center_id: token.id }
+        token.token = JsonWebToken::JsonWebToken.encode(payload)
+        token.save
         token
       end
 

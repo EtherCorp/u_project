@@ -14,7 +14,7 @@ module JsonWebToken
       JWT.decode(token,
                  auth_secret,
                  true,
-                 algorithm: ALGORITHM)
+                 algorithm: ALGORITHM).first
     end
 
     def self.auth_secret

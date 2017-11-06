@@ -30,10 +30,10 @@ ActiveRecord::Schema.define(version: 20171106024938) do
 
   create_table "connection_tokens", force: :cascade do |t|
     t.bigint "medical_center_id"
-    t.string "token", null: false
+    t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "active", null: false
+    t.boolean "active", default: true, null: false
     t.string "driver", null: false
     t.index ["medical_center_id"], name: "index_connection_tokens_on_medical_center_id"
   end
