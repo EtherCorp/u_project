@@ -9,8 +9,8 @@ module V1
       desc 'Create new connection token'
       params do
         requires :medical_center_id, type: Integer, desc: 'Medical center ID'
-        requires :token, type: String, desc: 'Metric name'
-        requires :expiration, type: Date, desc: 'Expiration date'
+        requires :active, type: Boolean, desc: 'Status token'
+        requires :driver, type: String, desc: 'Status token'
       end
       post do
         token = ConnectionToken.create_from_params params
@@ -21,7 +21,7 @@ module V1
       route_param :id do
         desc 'Get connection token by ID'
         get do
-          token = Metric.find_by_id(params[:id])
+          token = ConnectionToken.find_by_id(params[:id])
           error! 'Not Found', 404 unless token
           present token, with: Entities::ConnectionToken
         end

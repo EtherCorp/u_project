@@ -4,11 +4,11 @@ class MedicalCenter < ApplicationRecord
 
   validates :name, :address, presence: true
 
-  def self.create_form_params(params)
+  def self.create_from_params(params)
     attributes = params.to_h.symbolize_keys
     entry = new
     entry.name = attributes[:name]
-    entry.address = attributes[:addres]
+    entry.address = attributes[:address]
     entry
   end
 
