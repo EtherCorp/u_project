@@ -15,7 +15,7 @@ module V1
       post do
         token = ConnectionToken.create_from_params params
         error! 'Unprocessable Entity', 422 unless token.save
-        payload = { medical_center_id: token.id }
+        payload = { token_id: token.id }
         token.token = JsonWebToken::JsonWebToken.encode(payload)
         token.save
         token
