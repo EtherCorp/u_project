@@ -11,10 +11,15 @@ module JsonWebToken
     end
 
     def self.decode(token)
-      JWT.decode(token,
-                 auth_secret,
-                 true,
-                 algorithm: ALGORITHM).first
+      begin
+        response = JWT.decode(token,
+                             auth_secret,
+                             true,
+                             algorithm: ALGORITHM)
+      rescue
+        response = nil
+      end
+      response
     end
 
     def self.auth_secret

@@ -6,6 +6,19 @@ module V1
         present ConnectionToken.all, with: Entities::ConnectionToken
       end
 
+      desc 'Get connection token if is valid'
+      get 'token' do
+        error! 'No Token Provided' unless headers['Medical-Center-Token']
+
+        decoded_token = JsonWebToken::JsonWebToken.decode(headers['Medical-Center-Token'])
+        error! 'Invalid token' unless decoded_token
+
+        token = ConnectionToken.find_by_id(decoded_token[0]['token_id'])
+        error! 'Not Found', 404 unless token
+        error! 'Token not active' unless token.active
+        token
+      end
+
       desc 'Create new connection token'
       params do
         requires :medical_center_id, type: Integer, desc: 'Medical center ID'
@@ -20,33 +33,6 @@ module V1
         token.save
         token
       end
-
-      route_param :id do
-        desc 'Get connection token by ID'
-        get do
-          token = ConnectionToken.find_by_id(params[:id])
-          error! 'Not Found', 404 unless token
-          present token, with: Entities::ConnectionToken
-        end
-      end
-      
-      desc 'Get connection token if is valid'
-      params do 
-        requires :medical_center_id, type: Integer , desc: 'Medical center ID'
-        requires :token , type: String , desc: 'Access token'
-      end
-      route_param :token do
-        get do
-          token = ConnectionToken.find_by_token(params[:token])
-          error! 'Not Found', 404 unless token
-          if token.active
-            decode_token = JsonWebToken::JsonWebToken.decode(token)
-          else
-            error! 'Token not active'
-            token
-          end
-        end
-      end 
     end
   end
 end
