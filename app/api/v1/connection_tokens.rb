@@ -29,6 +29,24 @@ module V1
           present token, with: Entities::ConnectionToken
         end
       end
+      
+      desc 'Get connection token if is valid'
+      params do 
+        requires :medical_center_id, type: Integer , desc: 'Medical center ID'
+        requires :token , type: String , desc: 'Access token'
+      end
+      route_param :token do
+        get do
+          token = ConnectionToken.find_by_token(params[:token])
+          error! 'Not Found', 404 unless token
+          if token.active
+            decode_token = JsonWebToken::JsonWebToken.decode(token)
+          else
+            error! 'Token not active'
+            token
+          end
+        end
+      end 
     end
   end
 end
