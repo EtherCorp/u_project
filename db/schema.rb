@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171029151120) do
+ActiveRecord::Schema.define(version: 20171106024938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,10 +30,11 @@ ActiveRecord::Schema.define(version: 20171029151120) do
 
   create_table "connection_tokens", force: :cascade do |t|
     t.bigint "medical_center_id"
-    t.string "token", null: false
-    t.date "expiration", null: false
+    t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active", default: true, null: false
+    t.string "driver", null: false
     t.index ["medical_center_id"], name: "index_connection_tokens_on_medical_center_id"
   end
 
@@ -97,7 +98,7 @@ ActiveRecord::Schema.define(version: 20171029151120) do
 
   create_table "movements", force: :cascade do |t|
     t.bigint "consult_id"
-    t.string "movement_type"
+    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["consult_id"], name: "index_movements_on_consult_id"
