@@ -19,4 +19,8 @@
 - Migrate databases: 
     - `bundle exec rake db:create`
     - `bundle exec rake db:migrate`
+- Install React
+    - `bundle exec rails webpacker:install`
+    - `bundle exec rails webpacker:install:react`
+    - If the script ask to override a file because a conflict, type `n` and press enter
 - Run server: `bundle exec rails server`
