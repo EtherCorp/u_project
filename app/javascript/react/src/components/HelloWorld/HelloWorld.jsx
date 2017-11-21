@@ -14,5 +14,9 @@ class HelloWorld extends Component{
         )
     }
 }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/feature/materialize-integration
 export default HelloWorld;
