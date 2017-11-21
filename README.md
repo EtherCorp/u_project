@@ -19,4 +19,4 @@
 - Migrate databases: 
     - `bundle exec rake db:create`
     - `bundle exec rake db:migrate`
-- Run server: `bundle exec rails rerver`
+- Run server: `bundle exec rails server`
