@@ -19,6 +19,7 @@
 .idea/
 
 # Ignore personal configurations
-/config/*.yml/public/packs
+/config/*.yml
+/public/packs
 /public/packs-test
 /node_modules
