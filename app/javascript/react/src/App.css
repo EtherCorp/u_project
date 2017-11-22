@@ -1,0 +1,39 @@
+.wrapper {
+  display: flex;
+  flex-flow: column;
+  font-weight: bold;
+  text-align: center;
+}
+
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.header {
+  background: tomato;
+}
+
+.AppContent{
+  display: flex;
+  flex-flow: row;
+}
+
+.footer {
+
+}
+
+.main {
+  text-align: left;
+  width: 100%;
+
+}
+
+.aside-1 {
+  max-width: 25%;
+}
+
+
+body {
+  padding: 0em;
+}

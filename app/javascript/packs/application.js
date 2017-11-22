@@ -7,8 +7,8 @@ import ReactDOM from 'react-dom'
 import App from '../react/src/App.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-    ReactDOM.render(
-        <App name="React" />,
-        document.body.appendChild(document.createElement('div')),
-    )
+  ReactDOM.render(
+    <App name="React" />,
+    document.body.appendChild(document.createElement('div')),
+  )
 })

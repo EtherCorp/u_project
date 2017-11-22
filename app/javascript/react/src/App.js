@@ -1,5 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react'
+import {Pagination, Footer} from 'react-materialize'
+import HeaderContainer from './components/HeaderContainer/HeaderContainer'
+import FooterContainer from './components/FooterContainer/FooterContainer'
 import TimelineContainer from './components/TimelineContainer/TimelineContainer'
+
+import './App.css';
 
 class App extends Component {
     state = {
@@ -18,13 +23,25 @@ class App extends Component {
         ]
     }
 
-    render() {
+    render(){
         return(
-            <div>
-                <TimelineContainer items={this.state.movements}/>
+            <div className='ApplicationContainer'>
+                <div className="wrapper">
+                    <HeaderContainer/>
+                    <div className="AppContent">
+                        <aside className="aside aside-1">
+                            Insert Card Component
+                        </aside>
+                        <div className="main">
+                            <TimelineContainer items={this.state.movements}/>
+                        </div>
+                    </div>
+                    <FooterContainer/>
+                </div>
             </div>
         )
     }
+
 }
 
-export default App;
+export default App
