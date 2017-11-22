@@ -20,15 +20,15 @@
 
 .main {
   text-align: left;
-  background: deepskyblue;
+
 }
 
 .aside-1 {
-  background: gold;
+
 }
 
 .aside-2 {
-  background: hotpink;
+
 }
 
 @media all and (min-width: 600px) {
