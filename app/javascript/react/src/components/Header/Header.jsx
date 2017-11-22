@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Navbar, NavItem, ModalHeader} from 'react-materialize'
+import {Navbar, NavItem, Pagination} from 'react-materialize'
 
 
 class Header extends Component{
