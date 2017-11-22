@@ -1,41 +1,23 @@
 import React, { Component } from 'react'
-import { Button } from 'react-materialize'
+import {TimelineEvent} from 'react-event-timeline'
 
 import './TimelineItem.css'
 
 class TimelineItem extends Component{
     render(){
         return(
-            <div className="TimelineItem">
-                <div className="TimelineItem-date">
-                    {this.props.date}
-                </div>
-                <div className="TimelineItem-bullet">
-                    <svg
-                        width="100"
-                        height="200">
-                        <rect
-                            y="0"
-                            x="40"
-                            height="200"
-                            width="20"/>
-                        <circle
-                            r="50"
-                            cy="100"
-                            cx="50" />
-                    </svg>
-                </div>
-                <div className="TimelineItem-description">
-                    <span className="TimelineItem-type">
-                        {this.props.movement_type}
-                    </span>
-                    en
-                    <span className="TimelineItem-location">
-                        {this.props.location}
-                    </span>
-                </div>
+            <TimelineEvent
+                title={this.props.title}
+                createdAt={this.props.date}
+                icon={<i className="material-icons md-18">assignment</i>}
+                iconColor="#757575"
+                buttons={<a href={this.props.url}><i className="material-icons md-18">visibility</i></a>}
+                container="card"
 
-            </div>
+                cardHeaderStyle={{backgroundColor: "#8bc34a", color: "#503331"}}
+            >
+                {this.props.description}
+            </TimelineEvent>
         );
     }
 }

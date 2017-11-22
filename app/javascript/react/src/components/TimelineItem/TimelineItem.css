@@ -6,8 +6,10 @@
 }
 
 .TimelineItem-bullet{
-    width: 35px;
-    height: 35px;
+    display: flex;
+    width: auto;
+    height: auto;
+    margin: 0 5px;
 }
 
 span.TimelineItem-type {
