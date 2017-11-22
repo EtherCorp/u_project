@@ -1,11 +1,12 @@
 import React from 'react';
-
-import HelloWorld from './components/HelloWorld/HelloWorld'
+import ApplicationContainer from './components/ApplicationContainer/ApplicationContainer'
 
 const App = props => {
     return(
-        <HelloWorld/>
-)
+        <div>
+          <ApplicationContainer/>
+        </div>
+      )
 }
 
 export default App
