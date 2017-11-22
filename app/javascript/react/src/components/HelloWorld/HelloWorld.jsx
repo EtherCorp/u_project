@@ -5,7 +5,7 @@ import {Button, Icon} from 'react-materialize'
 class HelloWorld extends Component{
     render(){
         return(
-          <div className="HelloWorld">
+          <div className='HelloWorld'>
             <h1>Hola Mundo!</h1>
               <Button waves='light'>
             		<Icon>thumb_up</Icon>
@@ -14,9 +14,4 @@ class HelloWorld extends Component{
         )
     }
 }
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> origin/feature/materialize-integration
 export default HelloWorld;
