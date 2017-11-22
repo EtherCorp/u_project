@@ -1,0 +1,27 @@
+.TimelineItem{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.TimelineItem-bullet{
+    width: 35px;
+    height: 35px;
+}
+
+span.TimelineItem-type {
+    font-size: large;
+    font-weight: 500;
+    margin-right: 3px;
+}
+
+span.TimelineItem-location {
+    font-size: large;
+    font-weight: 500;
+    margin-left: 3px;
+}
+
+.TimelineItem-date {
+    font-style: italic;
+}

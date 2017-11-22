@@ -1,4 +1,6 @@
 {
-  "application.js": "/packs/application-f32f7d771554da7a41f7.js",
-  "hello_react.js": "/packs/hello_react-5612ffe4e734573493a4.js"
+  "application.css": "/packs/application-c3e01b7e46c585e7e4ef9c1249475675.css",
+  "application.js": "/packs/application-aa9214a718b310469c7c.js",
+  "hello_react.css": "/packs/hello_react-c3e01b7e46c585e7e4ef9c1249475675.css",
+  "hello_react.js": "/packs/hello_react-ec472ee98cba928880e3.js"
 }
