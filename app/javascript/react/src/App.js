@@ -1,15 +1,15 @@
 import React from 'react';
 
 import HelloWorld from './components/HelloWorld/HelloWorld'
-import Header from './components/Header/Header'
-import Footer from './components/Footer/Footer'
+import HeaderContainer from './components/HeaderContainer/HeaderContainer'
+import FooterContainer from './components/FooterContainer/FooterContainer'
 
 const App = props => {
     return(
         <div>
-          <Header/>
+          <HeaderContainer/>
           <HelloWorld/>
-          <Footer/>
+          <FooterContainer/>
         </div>
       )
 }

@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import {Navbar, NavItem, Pagination} from 'react-materialize'
 
 
-class Header extends Component{
+class HeaderContainer extends Component{
     render(){
         return(
-          <div className='Header'>
+          <div className='HeaderContainer'>
             <Navbar brand='logo' right>
               <NavItem href='#'>Getting started</NavItem>
               <NavItem href='#'>Components</NavItem>
@@ -14,4 +14,4 @@ class Header extends Component{
         )
     }
 }
-export default Header;
+export default HeaderContainer;
