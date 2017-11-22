@@ -1,15 +1,10 @@
 import React from 'react';
-
-import HelloWorld from './components/HelloWorld/HelloWorld'
-import HeaderContainer from './components/HeaderContainer/HeaderContainer'
-import FooterContainer from './components/FooterContainer/FooterContainer'
+import ApplicationContainer from './components/ApplicationContainer/ApplicationContainer'
 
 const App = props => {
     return(
         <div>
-          <HeaderContainer/>
-          <HelloWorld/>
-          <FooterContainer/>
+          <ApplicationContainer/>
         </div>
       )
 }

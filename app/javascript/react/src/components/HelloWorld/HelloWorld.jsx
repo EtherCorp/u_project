@@ -6,7 +6,7 @@ class HelloWorld extends Component{
     render(){
         return(
           <div className='HelloWorld'>
-            <h1>Hola Mundo!</h1>
+            <h1>HelloWorld component</h1>
               <Button waves='light'>
             		<Icon>thumb_up</Icon>
             	</Button>
