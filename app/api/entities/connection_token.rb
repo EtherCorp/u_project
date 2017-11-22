@@ -2,7 +2,8 @@ module Entities
   class ConnectionToken < Grape::Entity
     expose :id
     expose :token
-    expose :expiration
+    expose :active
+    expose :driver
     expose :medical_center, using: Entities::MedicalCenter
   end
 end

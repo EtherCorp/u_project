@@ -45,3 +45,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'grape', '~> 1.0.1'
 gem 'grape-entity', '~> 0.6.1'
 gem 'grape_on_rails_routes', '~> 0.3.2'
+gem 'jwt', '~> 2.1'
+gem 'webpacker', '~> 3.0'
