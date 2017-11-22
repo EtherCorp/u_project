@@ -42,6 +42,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 # Gemfile
+gem 'google-api-client', '~> 0.11'
 gem 'grape', '~> 1.0.1'
 gem 'grape-entity', '~> 0.6.1'
 gem 'grape_on_rails_routes', '~> 0.3.2'
