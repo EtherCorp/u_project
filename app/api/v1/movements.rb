@@ -10,6 +10,7 @@ module V1
       params do
         requires :consult_id, type: Integer, desc: 'Consult asociated to movement'
         optional :type, type: String, desc: 'Type of movement'
+        optional :details, type: Array, desc: 'Array of hashes, details'
       end
       post do
         movement = Movement.create_from_params params
