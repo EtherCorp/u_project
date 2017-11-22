@@ -10,7 +10,7 @@ class FooterContainer extends Component{
               <Pagination items={10} activePage={2} maxButtons={8} />
             </div>
             <div  className='footer-container'>
-              <Footer copyrights="&copy 2017 Copyright Text"
+              <Footer copyrights="&copy; 2017 EtherCorp"
               	moreLinks={
               		<a className="grey-text text-lighten-4 right" href="#!">More Links</a>
               	}

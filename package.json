@@ -6,6 +6,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-event-timeline": "^1.4.0",
     "react-materialize": "^1.1.0"
   },
   "devDependencies": {
