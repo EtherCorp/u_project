@@ -10,20 +10,26 @@ class TimelineContainer extends Component{
         return(
             <div className="TimelineContainer">
                 <Timeline>
-                    <TimelineItem
-                        date = "27/05/2017"
-                        title = "Titulo"
-                        description = "Una pequeña descripcion"
-                        url = "http://google.cl/"
-                    />
-                    <TimelineItem
-                        date = "21/03/2017"
-                        title = "Titulo 2"
-                        description = "Otra pequeña descripcion"
-                        url = "http://google.cl/"
-                    />
+                    {this.buildItems(this.props.items)}
                 </Timeline>
             </div>
+        )
+    }
+
+    buildItems(items) {
+        return items.map((item) => {
+            return this.buildItem(item)
+        })
+    }
+
+    buildItem(item) {
+        return (
+            <TimelineItem
+                date = {item.date}
+                title = {item.title}
+                description = {item.description}
+                url = {item.url}
+            />
         )
     }
 }
