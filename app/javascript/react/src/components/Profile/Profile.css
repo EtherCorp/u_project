@@ -1,0 +1,22 @@
+
+.card{
+  max-width: 350px
+}
+
+.profilecontainer{
+  display: flex;
+  max-width: 500px;
+  max-height: 500px;
+}
+.imagecard{
+  display: flex;
+  max-width: 400px;
+  max-height: 400px;
+}
+.cardcontainer{
+  display: flex;
+  flex-direction: row;
+}
+.card-content{
+  height: 250px;
+}
