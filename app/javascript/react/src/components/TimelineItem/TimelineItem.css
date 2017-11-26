@@ -11,7 +11,8 @@
 }
 
 .TimelineItem-bullet{
-    margin-right: -22px !important;
+    margin-right: -20px !important;
+    padding: 5px !important;
     height: fit-content;
     z-index: 1;
     border-style: solid !important;
@@ -44,10 +45,6 @@ span.TimelineItem-location {
 .TimelineItem-container {
     border-left: 5px solid #2185d0 !important;
     padding: 10px 0 3px 25px;
-}
-
- > .TimelineItem-container {
-    padding: 0;
 }
 
 .TimelineItem-rail{

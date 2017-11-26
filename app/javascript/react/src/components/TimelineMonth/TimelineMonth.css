@@ -1,0 +1,8 @@
+.TimelineMonth {
+    justify-content: center;
+    display: flex;
+}
+
+.TimelineMonth-label{
+    margin-right: 216px !important;
+}

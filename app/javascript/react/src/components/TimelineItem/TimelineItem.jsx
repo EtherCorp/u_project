@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Button } from 'semantic-ui-react'
+import { Card, Button, Icon } from 'semantic-ui-react'
 
 import './TimelineItem.css'
 
@@ -11,7 +11,11 @@ class TimelineItem extends Component{
                     <div className="TimelineItem-date">
                         {this.props.date}
                     </div>
-                    <Button className='TimelineItem-bullet' circular icon='doctor' />
+                    <Button
+                        className='TimelineItem-bullet'
+                        icon={<Icon name='doctor' size='large' />}
+                        circular
+                    />
                 </div>
 
                 <div className="TimelineItem-container">

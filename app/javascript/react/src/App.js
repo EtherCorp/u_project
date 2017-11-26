@@ -36,19 +36,15 @@ class App extends Component {
 
     render(){
         return(
-            <div>
+            <div className='App'>
                 <Menu fixed='top' size='large'>
                     <Container>
+                        <div className="App-logo">
+                            <h2>UNICORN</h2>
+                        </div>
 
-                        <Menu.Item>
-                            <Button basic className="burger" icon="sidebar" onClick={this.toggleLeftSidebarVisibility}/>
-                        </Menu.Item>
-
-
-                        <Menu.Item as='a' active>Home</Menu.Item>
-                        <Menu.Item as='a'>Work</Menu.Item>
-                        <Menu.Item as='a'>Company</Menu.Item>
-                        <Menu.Item as='a'>Careers</Menu.Item>
+                        <Menu.Item as='a' active>Mi historial</Menu.Item>
+                        <Menu.Item as='a'>Permisos</Menu.Item>
                         <Menu.Menu position='right'>
                             <Menu.Item onClick={this.toggleRightSidebarVisibility}>
                                 Gerardo Zúñiga Leal
