@@ -1,23 +1,30 @@
 import React, { Component } from 'react'
-import {TimelineEvent} from 'react-event-timeline'
+import { Card, Button } from 'semantic-ui-react'
 
 import './TimelineItem.css'
 
 class TimelineItem extends Component{
     render(){
         return(
-            <TimelineEvent
-                title={this.props.title}
-                createdAt={this.props.date}
-                icon={<i className="material-icons md-18">assignment</i>}
-                iconColor="#757575"
-                buttons={<a href={this.props.url}><i className="material-icons md-18">visibility</i></a>}
-                container="card"
+            <div className="TimelineItem">
+                <div className="TimelineItem-rail">
+                    <div className="TimelineItem-date">
+                        {this.props.date}
+                    </div>
+                    <Button className='TimelineItem-bullet' circular icon='doctor' />
+                </div>
 
-                cardHeaderStyle={{backgroundColor: "#8bc34a", color: "#503331"}}
-            >
-                {this.props.description}
-            </TimelineEvent>
+                <div className="TimelineItem-container">
+                    <Card className="TimelineItem-card">
+                        <Card.Content
+                            header={this.props.title}
+                            meta='algun subtitulo?'
+                            description={this.props.description}
+                        />
+                    </Card>
+                </div>
+
+            </div>
         );
     }
 }

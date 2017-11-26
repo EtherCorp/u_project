@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {Timeline} from 'react-event-timeline'
 
 import TimelineItem from "../TimelineItem/TimelineItem"
 
@@ -9,9 +8,7 @@ class TimelineContainer extends Component{
     render(){
         return(
             <div className="TimelineContainer">
-                <Timeline>
-                    {this.buildItems(this.props.items)}
-                </Timeline>
+                {this.buildItems(this.props.items)}
             </div>
         )
     }
