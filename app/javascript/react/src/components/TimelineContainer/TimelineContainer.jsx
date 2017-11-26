@@ -24,10 +24,7 @@ class TimelineContainer extends Component{
     buildItem(item) {
         return (
             <TimelineItem
-                date = {item.date}
-                title = {item.title}
-                description = {item.description}
-                url = {item.url}
+                item={item}
             />
         )
     }

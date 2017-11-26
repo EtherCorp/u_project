@@ -11,7 +11,7 @@
 }
 
 .TimelineItem-bullet{
-    margin-right: -20px !important;
+    margin-right: -24px !important;
     padding: 5px !important;
     height: fit-content;
     z-index: 1;
@@ -36,14 +36,14 @@ span.TimelineItem-location {
     font-style: italic;
     text-align: right;
     margin-right: 10px;
-    margin-top: 7px;
+    margin-top: 8px;
 }
 
 .TimelineItem-card{
 }
 
 .TimelineItem-container {
-    border-left: 5px solid #2185d0 !important;
+    border-left: 6px solid #2185d0 !important;
     padding: 10px 0 3px 25px;
 }
 
@@ -52,5 +52,5 @@ span.TimelineItem-location {
     flex-flow: row;
     justify-content: flex-end;
     width: 100px !important;
-    padding-top: 25px;
+    padding-top: 15px;
 }

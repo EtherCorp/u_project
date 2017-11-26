@@ -1,0 +1,39 @@
+.ProfileSidebar{
+    display: flex;
+    flex-flow: column;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.ProfileSidebar-image{
+    max-width: 175px !important;
+}
+
+.ProfileSidebar-title {
+    text-align: center;
+    text-overflow: clip;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.ProfileSidebar-subtitle{
+    text-align: center;
+    text-overflow: clip;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.ProfileSidebar-section{
+    text-align: center;
+    text-overflow: clip;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+.ProfileSidebar-list{
+
+}
