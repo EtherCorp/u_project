@@ -16,8 +16,9 @@ class Professional < ApplicationRecord
             :grant_date,
             :granting_entity,
             :email,
-            :freelance,
             presence: true
+  validates :freelance, inclusion: { in: [true, false] }
+
 
   def self.create_from_params(params)
     attributes = params.to_h.symbolize_keys
