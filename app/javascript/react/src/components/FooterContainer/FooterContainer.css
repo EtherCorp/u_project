@@ -1,10 +1,8 @@
-.footer-container{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
+.Footer {
+  text-align: center;
+  font-style: italic;
 }
 
-.page-footer{
-  width: 100%;
+span.Footer-company{
+  font-weight: bold;
 }

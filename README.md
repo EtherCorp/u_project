@@ -2,6 +2,7 @@
 
 ## How to set up project
 - Install ruby with rails and bundle gems
+- Install yarn
 - Install postgresql
 - (Optional) create a new postgres user
     - Change to default postgres user: `sudo -u postgres -i`
@@ -23,4 +24,6 @@
     - `bundle exec rails webpacker:install`
     - `bundle exec rails webpacker:install:react`
     - If the script ask to override a file because a conflict, type `n` and press enter
+- Update JavaScript packages
+    - `yarn install`
 - Run server: `bundle exec rails server`

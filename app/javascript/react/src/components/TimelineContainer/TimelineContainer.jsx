@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
-import {Timeline} from 'react-event-timeline'
 
 import TimelineItem from "../TimelineItem/TimelineItem"
 
 import './TimelineContainer.css'
+import TimelineMonth from "../TimelineMonth/TimelineMonth";
 
 class TimelineContainer extends Component{
     render(){
         return(
             <div className="TimelineContainer">
-                <Timeline>
-                    {this.buildItems(this.props.items)}
-                </Timeline>
+                <TimelineMonth month='Noviembre'/>
+                {this.buildItems(this.props.items)}
             </div>
         )
     }
@@ -25,10 +24,7 @@ class TimelineContainer extends Component{
     buildItem(item) {
         return (
             <TimelineItem
-                date = {item.date}
-                title = {item.title}
-                description = {item.description}
-                url = {item.url}
+                item={item}
             />
         )
     }

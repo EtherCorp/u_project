@@ -1,46 +1,134 @@
 import React, {Component} from 'react'
-import {Pagination, Footer} from 'react-materialize'
-import HeaderContainer from './components/HeaderContainer/HeaderContainer'
-import FooterContainer from './components/FooterContainer/FooterContainer'
-import TimelineContainer from './components/TimelineContainer/TimelineContainer'
+import { Sidebar, Container, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
+import FooterContainer from "./components/FooterContainer/FooterContainer";
+import ProfileSidebar from "./components/ProfileSidebar/ProfileSidebar";
+import TimelineContainer from "./components/TimelineContainer/TimelineContainer";
 
 import './App.css';
+import DefaultProfileImage from './assets/images/default/profile.jpg'
+
 
 class App extends Component {
-    state = {
-        movements: [
-            {
-                title: "Titulo 1",
-                url: "http://google.cl",
-                description: "Descripcion 1"
-            },
-            {
-                title: "Titulo 1",
-                url: "http://google.cl",
-                description: "Descripcion 1"
-            },
+  state = {
+    rightSidebarVisibility: false,
+    leftSidebarVisibility: false,
+    movements: [
+      {
+        date: "Hoy",
+        movementType: "Exámen",
+        medicalCenter: "Integramedica",
+        description: "",
+        url: "http://google.cl",
+      },
+      {
+        date: "Ayer",
+        movementType: "Consulta Médica",
+        medicalCenter: "Clínica Bicentenario",
+        description: "Consulta debido a un resfrío",
+        url: "http://google.cl",
+      },
+      {
+        date: "20/11/2017",
+        movementType: "Exámen",
+        medicalCenter: "Integramedica",
+        description: "Exámen de sangre",
+        url: "http://google.cl",
+      },
+      {
+        date: "13/11/2017",
+        movementType: "Exámen",
+        medicalCenter: "Integramedica",
+        description: "Radiografía al toraz",
+        url: "http://google.cl",
+      },
+      {
+        date: "13/11/2017",
+        movementType: "Exámen",
+        medicalCenter: "Integramedica",
+        description: "Exámen de sangre",
+        url: "http://google.cl",
+      },
+      {
+        date: "12/11/2017",
+        movementType: "Exámen",
+        medicalCenter: "Integramedica",
+        description: "Exámen de orina",
+        url: "http://google.cl",
+      },
+      {
+        date: "11/11/2017",
+        movementType: "Consulta Médica",
+        medicalCenter: "Clínica Bicentenario",
+        description: "Consulta sobre sibilancia toraxica. Dos semanas de evolución. Sin prescripciones asociadas",
+        url: "http://google.cl",
+      },
 
-        ]
+    ],
+    user:{
+      name: 'Gerardo Zúñiga Leal',
+      rut: '18049468-5',
+      age: '25 años',
+      diagnostics:[
+        'Hipertensión',
+        "Diabetes",
+      ]
     }
+  }
 
-    render(){
-        return(
-            <div className='ApplicationContainer'>
-                <div className="wrapper">
-                    <HeaderContainer/>
-                    <div className="AppContent">
-                        <aside className="aside aside-1">
-                            Insert Card Component
-                        </aside>
-                        <div className="main">
-                            <TimelineContainer items={this.state.movements}/>
-                        </div>
-                    </div>
-                    <FooterContainer/>
-                </div>
-            </div>
-        )
-    }
+  toggleRightSidebarVisibility = () => this.setState({ rightSidebarVisibility: !this.state.rightSidebarVisibility })
+  toggleLeftSidebarVisibility = () => this.setState({ leftSidebarVisibility: !this.state.leftSidebarVisibility })
+
+  render(){
+    return(
+      <div className='App'>
+          <Menu fixed='top' size='large'>
+              <Container>
+                  <div className="App-logo">
+                      <h2>UNICORN</h2>
+                  </div>
+
+                  <Menu.Item as='a' active>Mi historial</Menu.Item>
+                  <Menu.Item as='a'>Permisos</Menu.Item>
+                  <Menu.Menu position='right'>
+                      <Menu.Item className='App-userProfile' onClick={this.toggleRightSidebarVisibility}>
+                        {this.state.user.name}
+                          <Image
+                            className='App-profileImage'
+                            src={DefaultProfileImage}
+                            floated='right'
+                            size='mini'
+                            circular
+                          />
+                      </Menu.Item>
+                  </Menu.Menu>
+              </Container>
+          </Menu>
+
+          <Sidebar.Pushable className="App-pushable" >
+              <Sidebar
+                className='App-sidebar'
+                animation='overlay'
+                visible={this.state.rightSidebarVisibility}
+                direction='right'
+                icon='labeled'
+                vertical
+                inverted
+              >
+                  <ProfileSidebar user={this.state.user}/>
+              </Sidebar>
+
+              <Sidebar.Pusher>
+                  <div className='App-content'>
+                      <TimelineContainer items={this.state.movements}/>
+                  </div>
+
+              </Sidebar.Pusher>
+          </Sidebar.Pushable>
+
+          <FooterContainer/>
+      </div>
+    )
+  }
 
 }
 
