@@ -1,3 +1,4 @@
+require_dependency("lib/storage/services/google_drive")
 class Movement < ApplicationRecord
   belongs_to :consult
   has_many :documents
@@ -9,7 +10,16 @@ class Movement < ApplicationRecord
     attributes = params.to_h.symbolize_keys
     entry = new
     entry.consult_id = attributes[:consult_id]
-    entry.type = attributes[:type] || 'unknown'
+    entry.movement_type = attributes[:type] || 'unknown'
+    attributes[:details].each do |detail|
+      mov_detail = MovementDetail.create_from_params detail
+      mov_detail.save
+      entry.movement_details << mov_detail
+
+      if detail[:key] == 'file'
+        Storage::Storage.store! detail[:value], Services::GoogleDrive.new
+      end
+    end
     entry
   end
 
