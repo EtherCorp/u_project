@@ -1,0 +1,29 @@
+.App{
+  display: flex;
+  flex-flow: column;
+  min-height: 100%;
+}
+
+.App-pushable{
+  min-height: 600px;
+}
+
+.App-content{
+  padding-top: 50px;
+  min-height: 80%;
+}
+
+.App-logo {
+  display: flex;
+  align-items: center;
+  margin-right: 30px;
+}
+
+.App-sidebar{
+  width: 350px;
+}
+
+.App-userProfile {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}

@@ -1,0 +1,56 @@
+.TimelineItem{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.TimelineItem:first-child{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.TimelineItem-bullet{
+    margin-right: -24px !important;
+    padding: 5px !important;
+    height: fit-content;
+    z-index: 1;
+    border-style: solid !important;
+    border-width: 2px !important;
+    border-color: #2185d0 !important;
+}
+
+span.TimelineItem-type {
+    font-size: large;
+    font-weight: 500;
+    margin-right: 3px;
+}
+
+span.TimelineItem-location {
+    font-size: large;
+    font-weight: 500;
+    margin-left: 3px;
+}
+
+.TimelineItem-date {
+    font-style: italic;
+    text-align: right;
+    margin-right: 10px;
+    margin-top: 8px;
+}
+
+.TimelineItem-card{
+}
+
+.TimelineItem-container {
+    border-left: 6px solid #2185d0 !important;
+    padding: 10px 0 3px 25px;
+}
+
+.TimelineItem-rail{
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+    width: 100px !important;
+    padding-top: 15px;
+}

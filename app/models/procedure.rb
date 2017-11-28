@@ -1,0 +1,2 @@
+class Procedure < Movement
+end
