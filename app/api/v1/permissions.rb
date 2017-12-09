@@ -9,7 +9,7 @@ module V1
       post do
         mongo_connection = MongoConnection.new
         verified_token = mongo_connection.find_by_permission_token(params[:permission_token])
-        error! 'Invalid token' unless verified_token
+        error! 'Token Not Found', 404 unless verified_token['patient_id']
         params[:patient_id] = verified_token['patient_id']
         permission = Permission.create_from_params params
         error! 'Unprocessable Entity', 422 unless permission.save
@@ -30,7 +30,9 @@ module V1
         requires :patient, type: Integer, desc: 'Patient ID'
       end
       get do
-        token = Permission.create_permission_token(params[:patient])
+        patient = Patient.find_by_id(params[:patient])
+        error! 'Patient Not Found', 404 unless patient
+        token = Permission.create_permission_token
         data = { permission_token: token,
                  patient_id: params[:patient] }
         mongo_connection = MongoConnection.new

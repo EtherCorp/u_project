@@ -18,9 +18,7 @@ class Permission < ApplicationRecord
     find_by(id: id)
   end
 
-  def self.create_permission_token(patient_id)
-    patient = Patient.find_by_id(patient_id)
-    #error! 'Patient Not Found', 404 unless patient
+  def self.create_permission_token
     SecureRandom.hex(3)
   end
 
