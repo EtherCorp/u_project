@@ -45,6 +45,12 @@ class MongoConnection
     connection['permission_tokens'].delete_many(status: 'Done')
   end
 
+  def find_by_permission_token(permission_token)
+    response = connection['permission_tokens'].find(permission_token: permission_token)
+    return nil unless response
+    JSON.parse(response.to_json)[0].to_h
+  end
+
   def save_permission_token(data)
     result = connection['permission_tokens'].insert_one(data)
     find_permission_token_by_id(result.inserted_id)

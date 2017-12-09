@@ -3,12 +3,14 @@ module V1
     resource :permissions do
       desc 'Create new permission'
       params do
-        requires :patient_id, type: Integer, desc: 'Patient ID'
         requires :professional_id, type: Integer, desc: 'Professional ID'
-        requires :date, type: Date, desc: 'Permission date'
-        requires :expiration, type: Date, desc: 'Permission expiration date'
+        requires :permission_token, type: String, desc: 'Permission Token Provided'
       end
       post do
+        mongo_connection = MongoConnection.new
+        verified_token = mongo_connection.find_by_permission_token(params[:permission_token])
+        error! 'Invalid token' unless verified_token
+        params[:patient_id] = verified_token['patient_id']
         permission = Permission.create_from_params params
         error! 'Unprocessable Entity', 422 unless permission.save
         permission
@@ -23,13 +25,14 @@ module V1
         end
       end
 
-      desc 'Create a new permission token'
+      desc 'Get a new permission token'
       params do
         requires :patient, type: Integer, desc: 'Patient ID'
       end
       get do
         token = Permission.create_permission_token(params[:patient])
-        data = { permission_token: token }
+        data = { permission_token: token,
+                 patient_id: params[:patient] }
         mongo_connection = MongoConnection.new
         persisted_token = mongo_connection.save_permission_token(data)
         error! 'Unprocessable Entity', 422 unless persisted_token
