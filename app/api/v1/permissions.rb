@@ -23,6 +23,19 @@ module V1
         end
       end
 
+      desc 'Create a new permission token'
+      params do
+        requires :patient, type: Integer, desc: 'Patient ID'
+      end
+      get do
+        token = Permission.create_permission_token(params[:patient])
+        data = { permission_token: token }
+        mongo_connection = MongoConnection.new
+        persisted_token = mongo_connection.save_permission_token(data)
+        error! 'Unprocessable Entity', 422 unless persisted_token
+        token
+      end
+
       desc 'Get permission by patient and professional IDs'
       params do
         requires :patient, type: Integer, desc: 'Patient ID'
