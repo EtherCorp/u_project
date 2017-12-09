@@ -47,7 +47,6 @@ class MongoConnection
 
   def find_by_permission_token(permission_token)
     response = connection['permission_tokens'].find(permission_token: permission_token)
-    return nil unless response
     JSON.parse(response.to_json)[0].to_h
   end
 
