@@ -48,3 +48,6 @@ gem 'grape-entity', '~> 0.6.1'
 gem 'grape_on_rails_routes', '~> 0.3.2'
 gem 'jwt', '~> 2.1'
 gem 'webpacker', '~> 3.0'
+
+# Mongo for Activity Logger
+gem 'mongo', '~> 2.4.3'
