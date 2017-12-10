@@ -52,6 +52,7 @@ class MongoConnection
 
   def save_permission_token(data)
     result = connection['permission_tokens'].insert_one(data)
+    connection['permission_tokens'].indexes.create_one({ Created_at: 1 }, expire_after_seconds: 60)
     find_permission_token_by_id(result.inserted_id)
   end
 end
