@@ -39,16 +39,27 @@ module Services
       service.client_options.application_name = APPLICATION_NAME
       service.authorization = authorize
 
+
+      file_path = FILES_PATH + file_name
+      mime = MIME::Types.type_for(file_path)[0].to_s
+
       file_metadata = {
-        name: file_name,
-        mime_type: 'application/json'
+          name: file_name,
+          mime_type: mime
       }
 
       file = service.create_file(file_metadata,
                                  fields: 'id',
-                                 upload_source: FILES_PATH + file_name,
-                                 content_type: 'application/base64')
-      puts "File Id: #{file.id}"
+                                 upload_source: file_path,
+                                 content_type: mime)
+      file.id
+    end
+
+    def read_file(file_data)
+      service = Google::Apis::DriveV3::DriveService.new
+      service.client_options.application_name = APPLICATION_NAME
+      service.authorization = authorize
+      service.get_file(file_data[:id], download_dest: FILES_PATH + file_data[:name])
     end
   end
 end

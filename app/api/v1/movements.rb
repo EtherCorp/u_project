@@ -1,3 +1,4 @@
+require 'fileutils'
 module V1
   class Movements < Grape::API
     resource :movements do
