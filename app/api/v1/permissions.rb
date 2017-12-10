@@ -36,7 +36,7 @@ module V1
         token = Permission.create_permission_token
         data = { permission_token: token,
                  patient_id: params[:patient],
-                 Created_at: Time.now }      
+                 created_at: Time.now }
         mongo_connection = MongoConnection.new
         persisted_token = mongo_connection.save_permission_token(data)
         error! 'Unprocessable Entity', 422 unless persisted_token

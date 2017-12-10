@@ -29,20 +29,11 @@ class MongoConnection
     JSON.parse(response.to_json)[0].to_h
   end
 
-  def update_permission_token(mongo_request)
-    connection['permission_tokens'].update_one({ '_id' => mongo_request['_id'] },
-                                               mongo_request)
-  end
-
   def pending_permission_tokens
     result = connection['permission_tokens'].find(status: 'Pending')
     result.collect do |row|
       JSON.parse(row.to_json).to_h
     end
-  end
-
-  def delete_done_permission_tokens
-    connection['permission_tokens'].delete_many(status: 'Done')
   end
 
   def find_by_permission_token(permission_token)
@@ -52,7 +43,7 @@ class MongoConnection
 
   def save_permission_token(data)
     result = connection['permission_tokens'].insert_one(data)
-    connection['permission_tokens'].indexes.create_one({ Created_at: 1 }, expire_after_seconds: 60)
+    connection['permission_tokens'].indexes.create_one({ created_at: 1 }, expire_after_seconds: 60)
     find_permission_token_by_id(result.inserted_id)
   end
 end
