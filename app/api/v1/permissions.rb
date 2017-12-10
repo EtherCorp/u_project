@@ -1,4 +1,5 @@
 module V1
+  require 'time'
   class Permissions < Grape::API
     resource :permissions do
       desc 'Create new permission'
@@ -34,7 +35,8 @@ module V1
         error! 'Patient Not Found', 404 unless patient
         token = Permission.create_permission_token
         data = { permission_token: token,
-                 patient_id: params[:patient] }
+                 patient_id: params[:patient],
+                 Created_at: Time.now }      
         mongo_connection = MongoConnection.new
         persisted_token = mongo_connection.save_permission_token(data)
         error! 'Unprocessable Entity', 422 unless persisted_token
