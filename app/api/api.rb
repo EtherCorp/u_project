@@ -11,6 +11,7 @@ module API
       mount ::V1::MedicalCenters
       mount ::V1::Metrics
       mount ::V1::Movements
+      mount ::V1::MovementDetails
       mount ::V1::Patients
       mount ::V1::Permissions
       mount ::V1::Professionals

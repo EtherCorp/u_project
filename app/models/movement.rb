@@ -11,16 +11,38 @@ class Movement < ApplicationRecord
     entry = new
     entry.consult_id = attributes[:consult_id]
     entry.movement_type = attributes[:type] || 'unknown'
-    attributes[:details].each do |detail|
+
+    mov_details = store_details(attributes[:details])
+    entry.movement_details << mov_details
+
+    mov_files = store_files(attributes[:files])
+    entry.movement_details << mov_files
+    entry
+  end
+
+  def self.store_details(details)
+    return [] unless details
+    mov_details = []
+    details.each do |detail|
       mov_detail = MovementDetail.create_from_params detail
       mov_detail.save
-      entry.movement_details << mov_detail
-
-      if detail[:key] == 'file'
-        Storage::Storage.store! detail[:value], Services::GoogleDrive.new
-      end
+      mov_details << mov_detail
     end
-    entry
+    mov_details
+  end
+
+  def self.store_files(files)
+    return [] unless files
+    mov_files = []
+    service = Services::GoogleDrive.new
+    files.each do |file|
+      file_data = Storage::Storage.store file, service
+      params = Hash[key: 'file', value: file_data.to_s]
+      mov_file = MovementDetail.create_from_params params
+      mov_file.save
+      mov_files << mov_file
+    end
+    mov_files
   end
 
   def self.find_by_id(id)
