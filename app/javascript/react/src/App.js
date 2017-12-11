@@ -3,7 +3,8 @@ import { Sidebar, Container, Segment, Button, Menu, Image, Icon, Header } from '
 import FooterContainer from "./components/FooterContainer/FooterContainer";
 import ProfileSidebar from "./components/ProfileSidebar/ProfileSidebar";
 import TimelineContainer from "./components/TimelineContainer/TimelineContainer";
-
+import ConsultForm from './components/ConsultForm/ConsultForm';
+import Profeesional from './components/Profesional/Profesional';
 import './App.css';
 import DefaultProfileImage from './assets/images/default/profile.jpg'
 
@@ -12,6 +13,7 @@ class App extends Component {
   state = {
     rightSidebarVisibility: false,
     leftSidebarVisibility: false,
+    showconsult: false,
     movements: [
       {
         date: "Hoy",
@@ -77,7 +79,14 @@ class App extends Component {
 
   toggleRightSidebarVisibility = () => this.setState({ rightSidebarVisibility: !this.state.rightSidebarVisibility })
   toggleLeftSidebarVisibility = () => this.setState({ leftSidebarVisibility: !this.state.leftSidebarVisibility })
-
+  showConsult= () => {
+    this.setState({ showconsult: true })
+    console.log("estoy entrando")
+  }
+  showMovement = () =>{
+    this.setState({ showconsult:false})
+    console.log("cambie ?")
+  } 
   render(){
     return(
       <div className='App'>
@@ -87,8 +96,9 @@ class App extends Component {
                       <h2>UNICORN</h2>
                   </div>
 
-                  <Menu.Item as='a' active>Mi historial</Menu.Item>
+                  <Menu.Item as='a' onClick={this.showMovement}>Mi historial</Menu.Item>
                   <Menu.Item as='a'>Permisos</Menu.Item>
+                  <Menu.Item as='a' onClick={this.showConsult}>Consulta</Menu.Item>
                   <Menu.Menu position='right'>
                       <Menu.Item className='App-userProfile' onClick={this.toggleRightSidebarVisibility}>
                         {this.state.user.name}
@@ -118,8 +128,11 @@ class App extends Component {
               </Sidebar>
 
               <Sidebar.Pusher>
-                  <div className='App-content'>
+                  <div className='App-content' hidden={this.state.showconsult}  >
                       <TimelineContainer items={this.state.movements}/>
+                  </div>
+                  <div className='App-content' hidden={!this.state.showconsult} >
+                      <ConsultForm />
                   </div>
 
               </Sidebar.Pusher>
