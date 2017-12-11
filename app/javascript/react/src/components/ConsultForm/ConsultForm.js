@@ -13,25 +13,25 @@ export default class ConsultForm extends Component{
         return(
             <div className="consult-form">
 
-                <label>Patient Rut</label>
+                <label>rut paciente</label>
                 <br/>
                 <input
                     type='text'
-                    placeholder='Write Patient RUT'
+                    placeholder='escriba rut del paciente'
                     onChange={this.onRutPatientChange}
                     value={this.state.rutPatient}
                  />
                  <br/>
-                 <label>Date</label>
+                 <label>fecha de consulta</label>
                  <br/>
                  <input
                     type='text'
-                    placeholder='DD-MM-YYYY'
+                    placeholder='DD/MM/YYYY'
                     onChange={this.onDateChange}
                     value={this.state.date}
                  />
                  <br/>
-                 <label>Reason</label>
+                 <label>Razon de la consulta</label>
                  <br/>
                  <input
                     type='text'
@@ -49,7 +49,7 @@ export default class ConsultForm extends Component{
                     value={this.state.sintomas}
                  />
                  <br/>
-                 <label>Observations</label>
+                 <label>Observaciones</label>
                  <br/>
                  <input
                     type='text'
@@ -83,7 +83,12 @@ export default class ConsultForm extends Component{
         this.setState({observaciones: event.target.value});
     }
     onClickSend= (event) =>{
-        console.log(this.state);
+        const {rutPatient, reason, sintomas, observaciones} = this.state
+        if(rutPatient != '' && sintomas != '' && reason != '' && observaciones != ''){
+            console.log(this.state);
+            alert("Enviando Datos de la consulta")
+        }
+        alert("todos los campos deben contener información")
     }
     
 }
