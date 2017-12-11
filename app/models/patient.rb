@@ -5,9 +5,11 @@ class Patient < ApplicationRecord
   validates :rut, :name, :last_name, :age, presence: true
 
   def self.create_from_params(params)
+    return unless params
     attributes = params.to_h.symbolize_keys
     patient = new
     patient.rut = attributes[:rut]
+    patient.password = attributes[:password]
     patient.name = attributes[:name]
     patient.last_name = attributes[:last_name]
     patient.age = attributes[:age]
