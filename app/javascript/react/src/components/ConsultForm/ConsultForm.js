@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import "./ConsultForm.css"
 
 export default class ConsultForm extends Component{
     //rut del profesional debe ser agregado tambien
@@ -13,16 +14,16 @@ export default class ConsultForm extends Component{
         return(
             <div className="consult-form">
 
-                <label>rut paciente</label>
+                <label>Rut paciente</label>
                 <br/>
                 <input
                     type='text'
-                    placeholder='escriba rut del paciente'
+                    placeholder='Escriba rut del paciente'
                     onChange={this.onRutPatientChange}
                     value={this.state.rutPatient}
                  />
                  <br/>
-                 <label>fecha de consulta</label>
+                 <label>Fecha de consulta</label>
                  <br/>
                  <input
                     type='text'
@@ -31,16 +32,16 @@ export default class ConsultForm extends Component{
                     value={this.state.date}
                  />
                  <br/>
-                 <label>Razon de la consulta</label>
+                 <label>Razón de la consulta</label>
                  <br/>
                  <input
                     type='text'
-                    placeholder='escriba razon de la consulta'
+                    placeholder='Escriba razon de la consulta'
                     onChange={this.onReasonChange}
                     value={this.state.reason}
                  />
                  <br/>
-                 <label>Sintomas</label>
+                 <label>Síntomas</label>
                  <br/>
                  <input
                     type='text'

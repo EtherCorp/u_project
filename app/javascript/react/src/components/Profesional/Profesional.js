@@ -1,10 +1,11 @@
 import React,{Component} from 'react'
+import "./Professional.css"
 
 export default class Profesional extends Component{
     render(){
         return(
             <div className="profesional-container">
-                <h1>Profesional Info</h1>
+                <h1>Professional Info</h1>
                 {this.renderProfesional()}
                 <br/>
             </div>
