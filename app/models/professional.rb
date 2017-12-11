@@ -21,6 +21,7 @@ class Professional < ApplicationRecord
 
 
   def self.create_from_params(params)
+    return unless params
     attributes = params.to_h.symbolize_keys
     entry = new
     entry.rut = attributes[:rut]
