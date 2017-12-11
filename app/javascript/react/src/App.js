@@ -80,8 +80,13 @@ class App extends Component {
   toggleRightSidebarVisibility = () => this.setState({ rightSidebarVisibility: !this.state.rightSidebarVisibility })
   toggleLeftSidebarVisibility = () => this.setState({ leftSidebarVisibility: !this.state.leftSidebarVisibility })
   showConsult= () => {
-    this.setState({ showconsult: !this.state.showConsult })
+    this.setState({ showconsult: true })
+    console.log("estoy entrando")
   }
+  showMovement = () =>{
+    this.setState({ showconsult:false})
+    console.log("cambie ?")
+  } 
   render(){
     return(
       <div className='App'>
@@ -91,7 +96,7 @@ class App extends Component {
                       <h2>UNICORN</h2>
                   </div>
 
-                  <Menu.Item as='a' onClick={this.showConsult}>Mi historial</Menu.Item>
+                  <Menu.Item as='a' onClick={this.showMovement}>Mi historial</Menu.Item>
                   <Menu.Item as='a'>Permisos</Menu.Item>
                   <Menu.Item as='a' onClick={this.showConsult}>Consulta</Menu.Item>
                   <Menu.Menu position='right'>
@@ -123,10 +128,10 @@ class App extends Component {
               </Sidebar>
 
               <Sidebar.Pusher>
-                  <div className='App-content' hidden={this.state.showconsult} >
+                  <div className='App-content' hidden={this.state.showconsult}  >
                       <TimelineContainer items={this.state.movements}/>
                   </div>
-                  <div className='Consult-content' hidden={!this.state.showconsult}>
+                  <div className='App-content' hidden={!this.state.showconsult} >
                       <ConsultForm />
                   </div>
 
