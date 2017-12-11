@@ -10,12 +10,12 @@ class ConfirmDialog extends Component {
 
   render() {
     return (
-      <div>
-        <Button primary onClick={this.show}>Generar permiso</Button>
+      <div className='ConfirmDialog'>
+        <Button primary onClick={this.show}>{this.props.dialog.actionButtonText}</Button>
         <Confirm
           open={this.state.open}
-          header='Token de permiso'
-          content='Comparta el token generado con el profesional: 7b7c87'
+          header={this.props.dialog.header}
+          content={this.props.dialog.content}
           onCancel={this.handleCancel}
           onConfirm={this.handleConfirm}
         />

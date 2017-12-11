@@ -3,6 +3,8 @@ import { Sidebar, Container, Segment, Button, Menu, Image, Icon, Header } from '
 import FooterContainer from "./components/FooterContainer/FooterContainer";
 import ProfileSidebar from "./components/ProfileSidebar/ProfileSidebar";
 import TimelineContainer from "./components/TimelineContainer/TimelineContainer";
+import CodeGeneration from "./components/CodeGeneration/CodeGeneration";
+import PermissionsList from "./components/PermissionsList/PermissionsList";
 
 import './App.css';
 import DefaultProfileImage from './assets/images/default/profile.jpg'
@@ -87,8 +89,8 @@ class App extends Component {
                       <h2>UNICORN</h2>
                   </div>
 
-                  <Menu.Item as='a' active>Mi historial</Menu.Item>
-                  <Menu.Item href='permissions' as='a'>Permisos</Menu.Item>
+                  <Menu.Item as='a'>Mi historial</Menu.Item>
+                  <Menu.Item href='permissions' as='a' active>Permisos</Menu.Item>
                   <Menu.Menu position='right'>
                       <Menu.Item className='App-userProfile' onClick={this.toggleRightSidebarVisibility}>
                         {this.state.user.name}
@@ -119,12 +121,13 @@ class App extends Component {
 
               <Sidebar.Pusher>
                   <div className='App-content'>
-                      <TimelineContainer items={this.state.movements}/>
+                      <CodeGeneration/>
                   </div>
 
               </Sidebar.Pusher>
           </Sidebar.Pushable>
 
+          <PermissionsList/>
           <FooterContainer/>
       </div>
     )
