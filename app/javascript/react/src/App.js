@@ -88,7 +88,7 @@ class App extends Component {
                   </div>
 
                   <Menu.Item as='a' active>Mi historial</Menu.Item>
-                  <Menu.Item href='permissions' as='a'>Permisos</Menu.Item>
+                  <Menu.Item href='#' as='a'>Permisos</Menu.Item>
                   <Menu.Menu position='right'>
                       <Menu.Item className='App-userProfile' onClick={this.toggleRightSidebarVisibility}>
                         {this.state.user.name}
